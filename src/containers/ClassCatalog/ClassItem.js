@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import Rating from 'react-rating';
 
 class ClassItem extends PureComponent {
   static propTypes = {
@@ -22,10 +23,14 @@ class ClassItem extends PureComponent {
           <div className="description">
             <div className="title">{classInformation.title}</div>
             <div className="rating">
-              {/* <Rating initialRating={classInformation.rating} /> */}
+              <Rating
+                initialRating={classInformation.rating}
+                emptySymbol="fa fa-star-o fa-2x"
+                fullSymbol="fa fa-star fa-2x"
+                readonly
+              />
+              <div className="voted">Voted: {classInformation.voted}</div>
             </div>
-            <div className="description">{classInformation.description}</div>
-            <div className="count">Items number: <span>{classInformation.count}</span></div>
           </div>
         )}
       </div>

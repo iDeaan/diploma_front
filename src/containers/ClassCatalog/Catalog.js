@@ -15,14 +15,14 @@ const catalogItems = [
     title: 'Gladiator',
     image: 'https://i.pinimg.com/originals/44/31/bd/4431bd4cc9381ba8fe482e83367f3a49.jpg',
     voted: 12320,
-    rating: 4.8
+    rating: 4.4
   },
   {
     id: 3,
     title: 'Avatar',
     image: 'http://cafmp.com/wp-content/uploads/2012/11/Avatar.jpg',
     voted: 12420,
-    rating: 4.8
+    rating: 4.7
   },
   {
     id: 4,
