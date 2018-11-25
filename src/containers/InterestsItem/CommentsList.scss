@@ -1,0 +1,47 @@
+:global {
+  .comments-container {
+    margin: 20px 0;
+    .comments-title {
+      //padding: 10px 20px;
+      font-size: 18px;
+      margin-bottom: 10px;
+      //background: whitesmoke;
+      //border: solid 1px #bdbd;
+    }
+
+    .comments-list {
+      .comment-item {
+        background: whitesmoke;
+        border: solid 1px #bdbd;
+        padding: 10px 20px;
+        margin-bottom: 10px;
+
+        .comment-title {
+          display: flex;
+
+          .author {
+            font-weight: bold;
+            margin-right: 20px;
+            letter-spacing: 0.5px;
+          }
+        }
+
+        .comment-rating {
+          display: flex;
+
+          .title {
+            margin-right: 20px;
+          }
+        }
+
+
+
+        .comment-description {
+          border-top: solid 1px #bdbdbd;
+          margin-top: 5px;
+          padding-top: 15px;
+        }
+      }
+    }
+  }
+}

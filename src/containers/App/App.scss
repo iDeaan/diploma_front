@@ -34,6 +34,10 @@
   body {
     margin: 0 !important;
     padding: 0 !important;
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
   .global-app-container {
     .container {

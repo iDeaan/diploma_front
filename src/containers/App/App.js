@@ -19,7 +19,7 @@ import { Notifs } from 'components';
 import config from 'config';
 
 const SIMPLE_USER = 'volodia.gp@gmail.com';
-const ADVETISER_USER = 'vhorobiuk';
+const ADVETISER_USER = 'vhorobiuk@gmail.com';
 
 const isSimpleUser = user => user && user.email === SIMPLE_USER;
 const isAdvetiser = user => user && user.email === ADVETISER_USER;
@@ -134,7 +134,7 @@ class App extends Component {
               )}
               {isSimpleUser(user) && (
                 <LinkContainer to="/catalog">
-                  <NavItem eventKey={2}>Catalog</NavItem>
+                  <NavItem eventKey={2}>Interests</NavItem>
                 </LinkContainer>
               )}
               {isSimpleUser(user) && (

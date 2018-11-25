@@ -8,6 +8,7 @@ import LoginSuccess from 'containers/LoginSuccess/Loadable';
 import Register from 'containers/Register/Loadable';
 import Catalog from 'containers/Catalog/Loadable';
 import ClassCatalog from 'containers/ClassCatalog/Loadable';
+import InterestsItem from 'containers/InterestsItem/Loadable';
 
 const isAuthenticated = connectedReduxRedirect({
   redirectPath: '/login',
@@ -32,6 +33,7 @@ const routes = [
       { path: '/about', component: About },
       { path: '/chat', component: Chat },
       { path: '/login', component: Login },
+      { path: '/item/:id', component: isAuthenticated(InterestsItem) },
       { path: '/catalog/:id', component: isAuthenticated(ClassCatalog) },
       { path: '/catalog', component: isAuthenticated(Catalog) },
       { path: '/login-success', component: isAuthenticated(LoginSuccess) },

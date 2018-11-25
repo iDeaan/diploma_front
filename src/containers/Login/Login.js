@@ -78,6 +78,7 @@ class Login extends Component {
 
     return (
       <div className="container">
+        <div>You can login or register</div>
         <Helmet title="Login" />
         <h1>Login</h1>
         {!user && (
