@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import LoginForm from 'components/LoginForm/LoginForm';
+import RegistrationForm from 'components/RegistrationForm/RegistrationForm';
 import FacebookLogin from 'components/FacebookLogin/FacebookLogin';
 import * as authActions from 'redux/modules/auth';
 import * as notifActions from 'redux/modules/notifs';
@@ -27,6 +28,13 @@ class Login extends Component {
   static defaultProps = {
     user: null
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedTab: 'login'
+    };
+  }
 
   onFacebookLogin = async (err, data) => {
     if (err) return;
@@ -75,39 +83,86 @@ class Login extends Component {
 
   render() {
     const { user, logout } = this.props;
-
+    const { selectedTab } = this.state;
+    const isLoginEnabled = selectedTab === 'login';
+    require('./Login.scss');
     return (
-      <div className="container">
-        <div>You can login or register</div>
-        <Helmet title="Login" />
-        <h1>Login</h1>
-        {!user && (
-          <div>
-            <LoginForm onSubmit={this.onLocalLogin} />
-            <p>This will "log you in" as this user, storing the username in the session of the API server.</p>
-            <FacebookLogin
-              appId="635147529978862"
-              /* autoLoad={true} */
-              fields="name,email,picture"
-              onLogin={this.onFacebookLogin}
-              component={this.FacebookLoginButton}
-            />
+      <div className="container login-container">
+        <div className="tabs">
+          <div
+            className={`tab ${isLoginEnabled && 'active'}`}
+            onClick={() => this.setState({ selectedTab: 'login' })}
+          >
+            Авторизація
           </div>
-        )}
-        {user && (
-          <div>
-            <p>
-              You are currently logged in as
-              {user.email}.
-            </p>
-
+          <div
+            className={`tab ${!isLoginEnabled && 'active'}`}
+            onClick={() => this.setState({ selectedTab: 'register' })}
+          >
+            Реєстрація
+          </div>
+        </div>
+        {isLoginEnabled
+          ? (
             <div>
-              <button type="button" className="btn btn-danger" onClick={logout}>
-                <i className="fa fa-sign-out" /> Log Out
-              </button>
+              <Helmet title="Login" />
+              {!user && (
+                <div>
+                  <LoginForm onSubmit={this.onLocalLogin} />
+                  <div className="facebook-login section-item-container form-section">
+                    <div className="fb-text">You can also login via your Facebook account</div>
+                    <FacebookLogin
+                      appId="635147529978862"
+                      /* autoLoad={true} */
+                      fields="name,email,picture"
+                      onLogin={this.onFacebookLogin}
+                      component={this.FacebookLoginButton}
+                    />
+                  </div>
+                </div>
+              )}
+              {user && (
+                <div>
+                  <p>
+                    You are currently logged in as
+                    {user.email}.
+                  </p>
+
+                  <div>
+                    <button type="button" className="btn btn-danger" onClick={logout}>
+                      <i className="fa fa-sign-out" /> Log Out
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
-        )}
+          )
+          : (
+            <div>
+              <Helmet title="Registration" />
+              {!user && (
+                <div>
+                  <RegistrationForm onSubmit={this.onLocalLogin} />
+                </div>
+              )}
+              {user && (
+                <div>
+                  <p>
+                    You are currently logged in as
+                    {user.email}.
+                  </p>
+
+                  <div>
+                    <button type="button" className="btn btn-danger" onClick={logout}>
+                      <i className="fa fa-sign-out" /> Log Out
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )
+        }
+
       </div>
     );
   }

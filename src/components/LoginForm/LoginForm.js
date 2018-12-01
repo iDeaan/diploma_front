@@ -36,16 +36,18 @@ const LoginForm = ({ onSubmit }) => (
     validate={loginValidation}
     render={({ handleSubmit, submitError }) => (
       <form className="form-horizontal" onSubmit={handleSubmit}>
-        <Field name="email" type="text" component={Input} label="Email" />
-        <Field name="password" type="password" component={Input} label="Password" />
-        {submitError && (
-          <p className="text-danger">
-            <strong>{submitError}</strong>
-          </p>
-        )}
-        <button className="btn btn-success" type="submit">
-          <i className="fa fa-sign-in" /> Log In
-        </button>
+        <div className="form-section section-item-container">
+          <Field name="email" type="text" component={Input} label="Email" />
+          <Field name="password" type="password" component={Input} label="Password" />
+          {submitError && (
+            <p className="text-danger">
+              <strong>{submitError}</strong>
+            </p>
+          )}
+          <button className="btn btn-success" type="submit">
+            <i className="fa fa-sign-in" /> Log In
+          </button>
+        </div>
       </form>
     )}
   />
