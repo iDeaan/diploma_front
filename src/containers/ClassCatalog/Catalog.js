@@ -61,7 +61,7 @@ require('./ClassCatalog.scss');
 const ClassCatalog = () => (
   <div className="container class-catalog-page-container">
     <Helmet title="Home" />
-    <h1>
+    <h1 className="page-title">
       Films Catalog
     </h1>
     <div className="classes-catalog">

@@ -1,0 +1,11 @@
+:global {
+  .recommendations-catalog {
+    min-height: calc(100vh - 50px);
+
+    .classes-catalog {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+  }
+}
