@@ -93,6 +93,27 @@ const menuList = [
 //   {"name":"Call parents", "data": {"2017-01-01": 5, "2017-01-02": 3}}
 // ];
 
+const adsList = [
+  {
+    id: 1,
+    name: 'Знижки на книги 50%',
+    status: 'Активний',
+    beginDate: '21/12/2018',
+    endDate: '31/12/2018',
+    viewsNumber: 321,
+    clicksNumber: 90
+  },
+  {
+    id: 2,
+    name: 'Відкриття нового магазину!!!',
+    status: 'Не активний',
+    beginDate: '19/12/2018',
+    endDate: '21/12/2018',
+    viewsNumber: 141,
+    clicksNumber: 54
+  }
+];
+
 const role = 'advetiser';
 
 export default class Catalog extends Component {
@@ -189,7 +210,45 @@ export default class Catalog extends Component {
                       ]}
                     />
                   </div>
-                )
+                ),
+                advetisments: (
+                  <div className="statistics-container section-item-container">
+                    <div className="section-main-title">Рекламні матераіли для зацікавлення "Книги"</div>
+                    <div className="advetisments-table">
+                      <table style={{ width: '100%' }}>
+                        <tr>
+                          <th>№</th>
+                          <th>Назва</th>
+                          <th>Статус</th>
+                          <th>Дата початку</th>
+                          <th>Дата кінця</th>
+                          <th>Переглядів</th>
+                          <th>Кліків</th>
+                        </tr>
+                        {adsList.map(item => (
+                          <tr>
+                            <td>{item.id}</td>
+                            <td>{item.name}</td>
+                            <td>{item.status}</td>
+                            <td>{item.beginDate}</td>
+                            <td>{item.endDate}</td>
+                            <td>{item.viewsNumber}</td>
+                            <td>{item.clicksNumber}</td>
+                          </tr>
+                        ))}
+                      </table>
+                    </div>
+                    <button
+                      className="btn btn-success"
+                      style={{ marginTop: '20px' }}
+                      onClick={() => this.setState({ selectedTab: 'advetismentCreate' })}
+                    >
+                      <i className="fa fa-add" />
+                      Створити новий рекламний об'єкт
+                    </button>
+                  </div>
+                ),
+                advetismentCreate: <div>create</div>
               }[selectedTab]
             }
 
