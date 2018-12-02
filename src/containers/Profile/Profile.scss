@@ -57,5 +57,29 @@
         }
       }
     }
+
+    .statistics-container {
+      padding: 20px;
+
+      .section-main-title {
+        border-bottom: solid 1px #43363d;
+        padding: 5px 0;
+        font-size: 18px;
+        margin-bottom: 25px;
+      }
+
+      .select-data {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 16px;
+        margin-bottom: 45px;
+
+        select {
+          padding: 5px 10px;
+          font-size: 14px;
+        }
+      }
+    }
   }
 }

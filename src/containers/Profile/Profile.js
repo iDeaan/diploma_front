@@ -1,7 +1,19 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import RegistrationForm from 'components/RegistrationForm/RegistrationForm';
+
+import ReactChartkick, {
+// LineChart,
+  PieChart,
+  ColumnChart
+  // BarChart,
+  // AreaChart,
+  // ScatterChart
+} from 'react-chartkick';
+import Chart from 'chart.js';
 import RecommendationItem from './InterestItem';
+
+ReactChartkick.addAdapter(Chart);
 
 const musicImage = require('./music.jpg');
 const travellingImage = require('./travelling.jpg');
@@ -43,13 +55,13 @@ const recommendationItems = [
   {
     id: 2,
     title: 'Подорожі',
-    image: travellingImage,
+    image: travellingImage
   },
   {
     id: 3,
     title: 'Кросворди',
-    image: crosswordsImage,
-  },
+    image: crosswordsImage
+  }
 ];
 
 require('./Profile.scss');
@@ -61,9 +73,27 @@ const menuList = [
   },
   {
     title: 'Зацікавлення',
-    value: 'interests'
+    value: 'interests',
+    role: 'user'
+  },
+  {
+    title: 'Статистика інтересів та класів',
+    value: 'statistics',
+    role: 'advetiser'
+  },
+  {
+    title: 'Управління рекламою',
+    value: 'advetisments',
+    role: 'advetiser'
   }
 ];
+
+// const data = [
+//   {"name":"Workout", "data": {"2017-01-01": 3, "2017-01-02": 4}},
+//   {"name":"Call parents", "data": {"2017-01-01": 5, "2017-01-02": 3}}
+// ];
+
+const role = 'advetiser';
 
 export default class Catalog extends Component {
   constructor(props) {
@@ -71,52 +101,105 @@ export default class Catalog extends Component {
     this.state = {
       selectedTab: 'general',
       isSubmitting: false,
+      selectedStatistics: 'gender'
     };
   }
 
-  render() {
-    const { selectedTab, isSubmitting } = this.state;
+  handleChange(event) {
+    this.setState({ selectedStatistics: event.target.value });
+  }
 
+  render() {
+    const { selectedTab, isSubmitting, selectedStatistics } = this.state;
+    require('./Profile.scss');
+    console.log('selectedStatistics', selectedStatistics);
     return (
       <div className="container profile-page-container">
         <Helmet title="Home" />
-        <h1 className="page-title">
-          Мій профіль
-        </h1>
+        <h1 className="page-title">Мій профіль</h1>
         <div className="profile-page-content">
           <div className="profile-menu">
-            {menuList.map(item => (
-              <div
-                className={`menu-item section-item-container ${item.value === selectedTab && 'active'}`}
-                onClick={() => this.setState({ selectedTab: item.value })}
-              >
-                {item.title}
-              </div>
-            ))}
+            {menuList.map(item => {
+              if (item.role && item.role !== role) {
+                return '';
+              }
+              return (
+                <div
+                  className={`menu-item section-item-container ${item.value === selectedTab && 'active'}`}
+                  onClick={() => this.setState({ selectedTab: item.value })}
+                >
+                  {item.title}
+                </div>
+              );
+            })}
           </div>
           <div className="profile-content">
-            {{
-              interests: (
-                <div className="recommendations-catalog">
-                  {recommendationItems.map(recommendationItem => (
-                    <RecommendationItem recommendationInformation={recommendationItem} />
-                  ))}
-                </div>
-              ),
-              general: (
-                <RegistrationForm
-                  submitButtonName="Редагувати"
-                  submitButtonIcon="fa-edit"
-                  isSubmitting={isSubmitting}
-                  initialValues={{
-                    name: 'Володимир',
-                    age: 22,
-                    login: 'vhorobiuk',
-                    email: 'volodia.gp@gmail.com'
-                  }}
-                />
-              )
-            }[selectedTab]}
+            {
+              {
+                interests: (
+                  <div className="recommendations-catalog">
+                    {recommendationItems.map(recommendationItem => (
+                      <RecommendationItem recommendationInformation={recommendationItem} />
+                    ))}
+                  </div>
+                ),
+                general: (
+                  <RegistrationForm
+                    submitButtonName="Редагувати"
+                    submitButtonIcon="fa-edit"
+                    isSubmitting={isSubmitting}
+                    initialValues={{
+                      name: 'Володимир',
+                      age: 22,
+                      login: 'vhorobiuk',
+                      email: 'volodia.gp@gmail.com'
+                    }}
+                  />
+                ),
+                statistics: (
+                  <div className="statistics-container section-item-container">
+                    <div className="section-main-title">Статистика для зацікавлення "Книги"</div>
+                    <div className="select-data">
+                      <div className="key">Оберіть графік</div>
+                      <div className="value">
+                        <select>
+                          <option />
+                          <option>Графік розподілу людей за статтю</option>
+                          <option>Графік розподілу людей за віком</option>
+                          <option>Графік розподілу людей за роботою</option>
+                          <option>Графік розподілу людей за шлюбним статусом</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div style={{ display: 'none' }}>
+                      <PieChart data={[['Чоловіки', 39], ['Жінки', 61]]} />
+                      <ColumnChart
+                        data={[['10-20', 11], ['20-30', 34], ['30-40', 27], ['40-50', 12], ['50-60', 16], ['70-80', 0]]}
+                      />
+                      <PieChart data={[['Не в стосунках', 24], ['В стосунках', 76]]} />
+                    </div>
+                    <PieChart
+                      data={[
+                        ['Безробітні', 12],
+                        ['Викладачі', 44],
+                        ['ІТ-сфера', 21],
+                        ['Таксит', 7],
+                        ['Лікар', 13],
+                        ['Спортсмен', 3]
+                      ]}
+                    />
+                  </div>
+                )
+              }[selectedTab]
+            }
+
+            {/* <LineChart data={{"2017-01-01": 11, "2017-01-02": 6}} />*/}
+
+            {/* <ColumnChart data={[["Sun", 32], ["Mon", 46], ["Tue", 28]]} /> */}
+            {/* <BarChart data={[["Work", 32], ["Play", 1492]]} /> */}
+            {/* <AreaChart data={{"2017-01-01": 11, "2017-01-02": 6}} /> */}
+            {/* <ScatterChart data={[[174.0, 80.0], [176.5, 82.3]]} xtitle="Size" ytitle="Population" /> */}
+            {/* <LineChart data={data} /> */}
           </div>
         </div>
       </div>
