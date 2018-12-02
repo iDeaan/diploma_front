@@ -56,8 +56,8 @@ Input.propTypes = {
 
 const sexOptions = [
   {
-    title: 'Male',
-    value: 'Male'
+    title: 'Чоловік',
+    value: 'Жінка'
   },
   {
     title: 'Female',
@@ -67,7 +67,7 @@ const sexOptions = [
 
 const maritalOptions = [
   {
-    title: 'Male',
+    title: 'Не одружений',
     value: 'Male'
   },
   {
@@ -76,41 +76,61 @@ const maritalOptions = [
   }
 ];
 
-const LoginForm = ({ onSubmit }) => (
+const LoginForm = ({
+  onSubmit, submitButtonName, submitButtonIcon, isSubmitting, initialValues
+}) => (
   <Form
-    onSubmit={values => onSubmit(values).then(() => {}, err => err)}
+    onSubmit={values => {
+      if (isSubmitting) {
+        onSubmit(values).then(() => {}, err => err);
+      }
+    }}
     validate={loginValidation}
+    initialValues={initialValues}
     render={({ handleSubmit, submitError }) => (
-      <form className="form-horizontal" onSubmit={handleSubmit}>
+      <form className={`form-horizontal ${isSubmitting && 'submitting-form'}`} onSubmit={handleSubmit}>
         <div className="form-section section-item-container">
-          <Field name="name" type="text" component={Input} label="Name" />
-          <Field name="age" type="text" component={Input} label="Age" />
-          <Field name="gender" component={Select} label="Gender" options={sexOptions} />
-          <Field name="maritalStatus" component={Select} label="Marital Status" options={maritalOptions} />
+          <Field name="name" type="text" component={Input} label="Ім'я" />
+          <Field name="age" type="text" component={Input} label="Вік" />
+          <Field name="gender" component={Select} label="Стать" options={sexOptions} />
+          <Field name="maritalStatus" component={Select} label="Шлюбний статус" options={maritalOptions} />
         </div>
         <div className="form-section section-item-container">
           <Field name="login" type="text" component={Input} label="Login" />
           <Field name="email" type="text" component={Input} label="Email" />
         </div>
-        <div className="form-section section-item-container">
-          <Field name="password" type="password" component={Input} label="Password" />
-          <Field name="password" type="password" component={Input} label="Password Confirmation" />
-        </div>
+        {isSubmitting && (
+          <div className="form-section section-item-container">
+            <Field name="password" type="password" component={Input} label="Пароль" />
+            <Field name="password" type="password" component={Input} label="Підтвердження пароля" />
+          </div>
+        )}
         {submitError && (
           <p className="text-danger">
             <strong>{submitError}</strong>
           </p>
         )}
         <button className="btn btn-success" type="submit">
-          <i className="fa fa-sign-in" /> Registration
+          <i className={`fa ${submitButtonIcon || 'fa-arrow-right'}`} /> {submitButtonName || 'Зареєструватись'}
         </button>
       </form>
     )}
   />
 );
 
+LoginForm.defaultProps = {
+  isSubmitting: true,
+  submitButtonName: false,
+  submitButtonIcon: false,
+  initialValues: {},
+};
+
 LoginForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool,
+  submitButtonName: PropTypes.string,
+  submitButtonIcon: PropTypes.string,
+  initialValues: PropTypes.object,
 };
 
 export default LoginForm;
