@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import RegistrationForm from 'components/RegistrationForm/RegistrationForm';
+import AddForm from 'components/AddForm/AddForm';
 
 import ReactChartkick, {
 // LineChart,
@@ -120,7 +121,7 @@ export default class Catalog extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'general',
+      selectedTab: 'advetismentCreate',
       isSubmitting: false,
       selectedStatistics: 'gender'
     };
@@ -165,17 +166,19 @@ export default class Catalog extends Component {
                   </div>
                 ),
                 general: (
-                  <RegistrationForm
-                    submitButtonName="Редагувати"
-                    submitButtonIcon="fa-edit"
-                    isSubmitting={isSubmitting}
-                    initialValues={{
-                      name: 'Володимир',
-                      age: 22,
-                      login: 'vhorobiuk',
-                      email: 'volodia.gp@gmail.com'
-                    }}
-                  />
+                  <div className="registration-form">
+                    <RegistrationForm
+                      submitButtonName="Редагувати"
+                      submitButtonIcon="fa-edit"
+                      isSubmitting={isSubmitting}
+                      initialValues={{
+                        name: 'Володимир',
+                        age: 22,
+                        login: 'vhorobiuk',
+                        email: 'volodia.gp@gmail.com'
+                      }}
+                    />
+                  </div>
                 ),
                 statistics: (
                   <div className="statistics-container section-item-container">
@@ -248,7 +251,12 @@ export default class Catalog extends Component {
                     </button>
                   </div>
                 ),
-                advetismentCreate: <div>create</div>
+                advetismentCreate: (
+                  <div className="statistics-container section-item-container add-adv-container">
+                    <div className="section-main-title">Створення рекламного матеріалу</div>
+                    <AddForm submitButtonName="Створити новий рекламний матеріал" submitButtonIcon="fa-save" />
+                  </div>
+                )
               }[selectedTab]
             }
 

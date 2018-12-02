@@ -24,13 +24,43 @@
     .profile-content {
       width: 750px;
 
-      .form-horizontal {
-        padding: 20px;
-        background: whitesmoke;
-        border: none;
+      .registration-form {
+        .form-horizontal {
+          padding: 20px;
+          background: whitesmoke;
+          border: none;
 
-        .section-item-container {
-          margin-bottom: 40px;
+          .section-item-container {
+            margin-bottom: 40px;
+            border: none;
+          }
+
+          .form-group {
+            display: flex;
+            align-items: center;
+
+            label {
+              font-weight: 300;
+              width: 300px;
+            }
+
+            input {
+              border: none;
+              background: whitesmoke;
+              box-shadow: none;
+            }
+
+            select {
+              border: none;
+              background: whitesmoke;
+              box-shadow: none;
+            }
+          }
+        }
+      }
+
+      .add-adv-container {
+        .form-section {
           border: none;
         }
 
@@ -41,18 +71,6 @@
           label {
             font-weight: 300;
             width: 300px;
-          }
-
-          input {
-            border: none;
-            background: whitesmoke;
-            box-shadow: none;
-          }
-
-          select {
-            border: none;
-            background: whitesmoke;
-            box-shadow: none;
           }
         }
       }
