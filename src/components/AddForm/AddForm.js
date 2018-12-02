@@ -1,6 +1,8 @@
 import React from 'react';
 import { Form, Field } from 'react-final-form';
 import PropTypes from 'prop-types';
+import Dropzone from 'react-dropzone';
+import DatePicker from 'react-datepicker';
 import loginValidation from './addValidation';
 
 const Input = ({
@@ -23,17 +25,44 @@ const Input = ({
   </div>
 );
 
-const Select = ({
-  input, label, type, meta: { touched, error, submitError }, options, ...rest
-}) => (
+// const Select = ({
+//   input, label, type, meta: { touched, error, submitError }, options, ...rest
+// }) => (
+//   <div className={`form-group ${(error || submitError) && touched ? 'has-error' : ''}`}>
+//     <label htmlFor={input.name} className="col-sm-2">
+//       {label}
+//     </label>
+//     <div className="col-sm-10">
+//       <select {...input} {...rest} type={type} className="form-control">
+//         {options && options.map(item => <option value={item.value}>{item.title}</option>)}
+//       </select>
+//       {(error || submitError) && touched && <span className="glyphicon glyphicon-remove form-control-feedback" />}
+//       {(error || submitError)
+//         && touched && (
+//         <div className="text-danger">
+//           <strong>{error || submitError}</strong>
+//         </div>
+//       )}
+//     </div>
+//   </div>
+// );
+
+const DateTimeInput = ({ input, label, meta: { touched, error, submitError } }) => (
   <div className={`form-group ${(error || submitError) && touched ? 'has-error' : ''}`}>
     <label htmlFor={input.name} className="col-sm-2">
       {label}
     </label>
     <div className="col-sm-10">
-      <select {...input} {...rest} type={type} className="form-control">
-        {options && options.map(item => <option value={item.value}>{item.title}</option>)}
-      </select>
+      <DatePicker
+        // selected={this.state.startDate}
+        // onChange={this.handleChange}
+        // showTimeSelect
+        // timeFormat="HH:mm"
+        // timeIntervals={15}
+        // dateFormat="MMMM d, yyyy h:mm aa"
+        // timeCaption="time"
+        inline
+      />
       {(error || submitError) && touched && <span className="glyphicon glyphicon-remove form-control-feedback" />}
       {(error || submitError)
         && touched && (
@@ -45,23 +74,44 @@ const Select = ({
   </div>
 );
 
+DateTimeInput.propTypes = {
+  input: PropTypes.objectOf(PropTypes.any).isRequired,
+  label: PropTypes.string.isRequired,
+  meta: PropTypes.objectOf(PropTypes.any).isRequired
+};
+
+const FileInput = ({ input, label, meta: { touched, error, submitError } }) => (
+  <div className={`form-group ${(error || submitError) && touched ? 'has-error' : ''}`}>
+    <label htmlFor={input.name} className="col-sm-2">
+      {label}
+    </label>
+    <div className="col-sm-10">
+      <Dropzone>
+        <p className="file-uploaded">Перетягніть файли сюди, або натисніть для вибору файлів для завантаження.</p>
+      </Dropzone>
+      {(error || submitError) && touched && <span className="glyphicon glyphicon-remove form-control-feedback" />}
+      {(error || submitError)
+        && touched && (
+        <div className="text-danger">
+          <strong>{error || submitError}</strong>
+        </div>
+      )}
+    </div>
+  </div>
+);
+
+FileInput.propTypes = {
+  input: PropTypes.objectOf(PropTypes.any).isRequired,
+  label: PropTypes.string.isRequired,
+  meta: PropTypes.objectOf(PropTypes.any).isRequired
+};
+
 Input.propTypes = {
   input: PropTypes.objectOf(PropTypes.any).isRequired,
   label: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   meta: PropTypes.objectOf(PropTypes.any).isRequired
 };
-
-const maritalOptions = [
-  {
-    title: 'Не одружений',
-    value: 'Male'
-  },
-  {
-    title: 'Female',
-    value: 'Female'
-  }
-];
 
 const LoginForm = ({
   onSubmit, submitButtonName, submitButtonIcon, isSubmitting, initialValues
@@ -80,7 +130,7 @@ const LoginForm = ({
           <Field name="title" type="text" component={Input} label="Заголовок" />
           <Field name="description" type="text" component={Input} label="Опис" />
           <Field name="url" type="text" component={Input} label="Посилання, куди веде реклама" />
-          <Field
+          {/* <Field
             name="gender"
             component={Select}
             label="Стать"
@@ -91,18 +141,11 @@ const LoginForm = ({
               }
             ]}
           />
-          <Field name="maritalStatus" component={Select} label="Шлюбний статус" options={maritalOptions} />
+          <Field name="maritalStatus" component={Select} label="Шлюбний статус" options={maritalOptions} /> */}
+          <Field name="image_src" type="text" component={FileInput} label="Зображеня" />
+          <Field name="begin_date" type="text" component={Input} label="Дата початку показу" />
+          <Field name="end_date" type="text" component={Input} label="Дата завершення показу" />
         </div>
-        <div className="form-section section-item-container">
-          <Field name="login" type="text" component={Input} label="Login" />
-          <Field name="email" type="text" component={Input} label="Email" />
-        </div>
-        {isSubmitting && (
-          <div className="form-section section-item-container">
-            <Field name="password" type="password" component={Input} label="Пароль" />
-            <Field name="password" type="password" component={Input} label="Підтвердження пароля" />
-          </div>
-        )}
         {submitError && (
           <p className="text-danger">
             <strong>{submitError}</strong>

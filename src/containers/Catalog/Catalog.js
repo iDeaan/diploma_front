@@ -12,24 +12,24 @@ const bookBannerImage = require('./book_banner.jpg');
 const catalogItems = [
   {
     id: 1,
-    title: 'Books',
+    title: 'Книги',
     image: booksImage,
     count: 100323,
-    description: 'List of books that have different types. Just read it!!!'
+    description: 'Каталог книг, що мають різні жанри. Просто прочитай їх!!!'
   },
   {
     id: 2,
-    title: 'Films',
+    title: 'Фільми',
     image: filmsImage,
     count: 32133,
-    description: 'List of films that have different types. Just watch it!!!'
+    description: 'Каталог фільмів, що мають різні жанри. Просто переглянь їх!!!'
   },
   {
     id: 3,
-    title: 'Music',
+    title: 'Музика',
     image: musicImage,
     count: 2343,
-    description: 'List of music that have different types. Just listen to it!!!'
+    description: 'Каталог пісень, що мають різні жанри. Просто послухай їх!!!'
   },
   {
     title: 'Music',
@@ -51,7 +51,7 @@ const catalogItems = [
     count: 2343,
     isBanner: true,
     description: 'List of music that have different types. Just listen to it!!!'
-  },
+  }
 ];
 
 require('./Catalog.scss');
@@ -59,9 +59,7 @@ require('./Catalog.scss');
 const Catalog = () => (
   <div className="container catalog-page-container">
     <Helmet title="Home" />
-    <h1 className="page-title">
-      Available materials
-    </h1>
+    <h1 className="page-title">Наявні зацікавлення</h1>
     <div className="classes-catalog">
       {catalogItems.map(catalogItem => (
         <ClassItem classInformation={catalogItem} />

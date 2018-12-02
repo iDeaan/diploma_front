@@ -17,7 +17,7 @@ class FacebookLogin extends Component {
   };
 
   static defaultProps = {
-    textButton: 'Login with Facebook',
+    textButton: 'Увійти через Facebook',
     className: '',
     scope: 'public_profile,email',
     xfbml: false,

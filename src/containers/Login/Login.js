@@ -89,10 +89,7 @@ class Login extends Component {
     return (
       <div className="container login-container">
         <div className="tabs">
-          <div
-            className={`tab ${isLoginEnabled && 'active'}`}
-            onClick={() => this.setState({ selectedTab: 'login' })}
-          >
+          <div className={`tab ${isLoginEnabled && 'active'}`} onClick={() => this.setState({ selectedTab: 'login' })}>
             Авторизація
           </div>
           <div
@@ -102,67 +99,63 @@ class Login extends Component {
             Реєстрація
           </div>
         </div>
-        {isLoginEnabled
-          ? (
-            <div>
-              <Helmet title="Login" />
-              {!user && (
-                <div>
-                  <LoginForm onSubmit={this.onLocalLogin} />
-                  <div className="facebook-login section-item-container form-section">
-                    <div className="fb-text">You can also login via your Facebook account</div>
-                    <FacebookLogin
-                      appId="635147529978862"
-                      /* autoLoad={true} */
-                      fields="name,email,picture"
-                      onLogin={this.onFacebookLogin}
-                      component={this.FacebookLoginButton}
-                    />
-                  </div>
+        {isLoginEnabled ? (
+          <div>
+            <Helmet title="Login" />
+            {!user && (
+              <div>
+                <LoginForm onSubmit={this.onLocalLogin} />
+                <div className="facebook-login section-item-container form-section">
+                  <div className="fb-text">Ви також можете авторизуватись через свій акаунт Facebook</div>
+                  <FacebookLogin
+                    appId="635147529978862"
+                    /* autoLoad={true} */
+                    fields="name,email,picture"
+                    onLogin={this.onFacebookLogin}
+                    component={this.FacebookLoginButton}
+                  />
                 </div>
-              )}
-              {user && (
-                <div>
-                  <p>
-                    You are currently logged in as
-                    {user.email}.
-                  </p>
+              </div>
+            )}
+            {user && (
+              <div>
+                <p>
+                  You are currently logged in as
+                  {user.email}.
+                </p>
 
-                  <div>
-                    <button type="button" className="btn btn-danger" onClick={logout}>
-                      <i className="fa fa-sign-out" /> Log Out
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          )
-          : (
-            <div>
-              <Helmet title="Registration" />
-              {!user && (
                 <div>
-                  <RegistrationForm onSubmit={this.onLocalLogin} />
+                  <button type="button" className="btn btn-danger" onClick={logout}>
+                    <i className="fa fa-sign-out" /> Log Out
+                  </button>
                 </div>
-              )}
-              {user && (
+              </div>
+            )}
+          </div>
+        ) : (
+          <div>
+            <Helmet title="Registration" />
+            {!user && (
+              <div>
+                <RegistrationForm onSubmit={this.onLocalLogin} />
+              </div>
+            )}
+            {user && (
+              <div>
+                <p>
+                  You are currently logged in as
+                  {user.email}.
+                </p>
+
                 <div>
-                  <p>
-                    You are currently logged in as
-                    {user.email}.
-                  </p>
-
-                  <div>
-                    <button type="button" className="btn btn-danger" onClick={logout}>
-                      <i className="fa fa-sign-out" /> Log Out
-                    </button>
-                  </div>
+                  <button type="button" className="btn btn-danger" onClick={logout}>
+                    <i className="fa fa-sign-out" /> Log Out
+                  </button>
                 </div>
-              )}
-            </div>
-          )
-        }
-
+              </div>
+            )}
+          </div>
+        )}
       </div>
     );
   }

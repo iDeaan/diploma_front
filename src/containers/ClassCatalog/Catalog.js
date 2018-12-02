@@ -5,21 +5,21 @@ import ClassItem from './ClassItem';
 const catalogItems = [
   {
     id: 1,
-    title: 'The Lord of the Rings: The Fellowship of the Ring',
+    title: 'Володар перснів: Хранителі Персня',
     image: 'https://images-na.ssl-images-amazon.com/images/I/A1cENmAtYsL._RI_.jpg',
     voted: 1220,
     rating: 5
   },
   {
     id: 2,
-    title: 'Gladiator',
+    title: 'Гладіатор',
     image: 'https://i.pinimg.com/originals/44/31/bd/4431bd4cc9381ba8fe482e83367f3a49.jpg',
     voted: 12320,
     rating: 4.4
   },
   {
     id: 3,
-    title: 'Avatar',
+    title: 'Аватар',
     image: 'http://cafmp.com/wp-content/uploads/2012/11/Avatar.jpg',
     voted: 12420,
     rating: 4.7
@@ -52,18 +52,15 @@ const catalogItems = [
     image: 'https://images-na.ssl-images-amazon.com/images/I/A1cENmAtYsL._RI_.jpg',
     voted: 1220,
     rating: 5
-  },
+  }
 ];
 
 require('./ClassCatalog.scss');
 
-
 const ClassCatalog = () => (
   <div className="container class-catalog-page-container">
     <Helmet title="Home" />
-    <h1 className="page-title">
-      Films Catalog
-    </h1>
+    <h1 className="page-title">Каталог фільмів</h1>
     <div className="classes-catalog">
       {catalogItems.map(catalogItem => (
         <ClassItem classInformation={catalogItem} />

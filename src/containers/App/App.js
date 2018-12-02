@@ -127,19 +127,20 @@ class App extends Component {
 
           <Navbar.Collapse>
             <Nav navbar>
-              {user && false && (
+              {user
+                && false && (
                 <LinkContainer to="/chat">
                   <NavItem eventKey={1}>Chat</NavItem>
                 </LinkContainer>
               )}
               {isSimpleUser(user) && (
                 <LinkContainer to="/catalog">
-                  <NavItem eventKey={2}>Interests</NavItem>
+                  <NavItem eventKey={2}>Зацікавлення</NavItem>
                 </LinkContainer>
               )}
               {isSimpleUser(user) && (
                 <LinkContainer to="/recommendations">
-                  <NavItem eventKey={2}>Recommendations</NavItem>
+                  <NavItem eventKey={2}>Рекомендації</NavItem>
                 </LinkContainer>
               )}
               {isAdvetiser(user) && (
@@ -166,13 +167,19 @@ class App extends Component {
             <Nav navbar pullRight>
               {!user && (
                 <LinkContainer to="/login" className="login-links">
-                  <NavItem eventKey={6}><i className="fa fa-sign-in" /><span>Login</span></NavItem>
+                  <NavItem eventKey={6}>
+                    <i className="fa fa-sign-in" />
+                    <span>Увійти</span>
+                  </NavItem>
                 </LinkContainer>
               )}
               {user && (
                 <LinkContainer to="/logout" className="login-links">
                   <NavItem eventKey={7} className="logout-link" onClick={this.handleLogout}>
-                    <span className="right">Logged in as <strong>{user.email}</strong></span>
+                    <span className="right">
+                      Авторизовані, як&nbsp;
+                      <strong>{user.email}</strong>
+                    </span>
                     <i className="fa fa-sign-out" />
                   </NavItem>
                 </LinkContainer>

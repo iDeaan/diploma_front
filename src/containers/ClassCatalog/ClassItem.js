@@ -29,7 +29,7 @@ class ClassItem extends PureComponent {
                 fullSymbol="fa fa-star fa-2x"
                 readonly
               />
-              <div className="voted">Voted: {classInformation.voted}</div>
+              <div className="voted">Проголосовано: {classInformation.voted}</div>
             </div>
           </div>
         )}

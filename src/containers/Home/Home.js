@@ -7,9 +7,9 @@ import Helmet from 'react-helmet';
 // import { connect } from 'react-redux';
 
 const offersList = [
-  'browse the catalog of interesting information',
-  'get recommendation about new interests',
-  'receive only relevant ads'
+  'перегляд каталогу цікавої інформації',
+  'отримання рекомендацій щодо нових зацікавлень',
+  'отримання лише релевантної реклами'
 ];
 
 require('./Home.scss');
@@ -21,13 +21,15 @@ const Home = () => (
       <div className="hero-text">
         <div className="background" />
         <div className="content">
-          <h2>Recommendation system <strong>ReckYou</strong></h2>
+          <h2>
+            Рекомендаційна система <strong>ReckYou</strong>
+          </h2>
           <h4>
-            A system of recommendations that does not force you to fill a huge number of forms.
-            You just need to login through your social network account,
-            or stay anonymous and use partial opportunities
+            Система рекомендацій, що не змушує Вас заповнювати величезну кількість форм. Вам просто необхідно
+            авторизуватись через свою соціальну мережу, або залишитись анонімним та користуватись обмеженими
+            можливостями.
           </h4>
-          <h3>What we offer:</h3>
+          <h3>Що ми пропонуємо:</h3>
           <ul>
             {offersList.map(item => (
               <li>
@@ -35,9 +37,7 @@ const Home = () => (
               </li>
             ))}
           </ul>
-          <div className="custom-default-button">
-            Register now
-          </div>
+          <div className="custom-default-button">Зареєструватись зараз</div>
         </div>
       </div>
     </div>

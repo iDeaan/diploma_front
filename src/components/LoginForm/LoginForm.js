@@ -45,7 +45,7 @@ const LoginForm = ({ onSubmit }) => (
             </p>
           )}
           <button className="btn btn-success" type="submit">
-            <i className="fa fa-sign-in" /> Log In
+            <i className="fa fa-sign-in" /> Увійти
           </button>
         </div>
       </form>
