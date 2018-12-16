@@ -9,7 +9,7 @@ import Register from 'containers/Register/Loadable';
 import Registration from 'containers/Registration/Loadable';
 import Catalog from 'containers/Interests/Loadable';
 import ClassCatalog from 'containers/ClassCatalog/Loadable';
-import InterestsItem from 'containers/InterestsItem/Loadable';
+import InterestsItem from 'containers/MaterialItem/Loadable';
 import Reccomendations from 'containers/Reccomendations/Loadable';
 import Profile from 'containers/Profile/Loadable';
 
@@ -37,7 +37,7 @@ const routes = [
       { path: '/chat', component: Chat },
       { path: '/login', component: Login },
       { path: '/registration', component: Registration },
-      { path: '/item/:id', component: isAuthenticated(InterestsItem) },
+      { path: '/material/:id', component: isAuthenticated(InterestsItem) },
       { path: '/interests/:id', component: isAuthenticated(ClassCatalog) },
       { path: '/interests', component: isAuthenticated(Catalog) },
       { path: '/login-success', component: isAuthenticated(LoginSuccess) },

@@ -1,21 +1,31 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Rating from 'react-rating';
+import { withRouter } from 'react-router';
 
+@withRouter
 class ClassItem extends PureComponent {
   static propTypes = {
-    classInformation: PropTypes.object
+    classInformation: PropTypes.object,
+    history: PropTypes.objectOf(PropTypes.any).isRequired
   };
 
   static defaultProps = {
     classInformation: {}
   };
 
+  handleClick() {
+    const { history, classInformation } = this.props;
+    history.push({
+      pathname: `/material/${classInformation.id}`
+    });
+  }
+
   render() {
     const { classInformation } = this.props;
     require('./ClassItem.scss');
     return (
-      <div className="class-catalog-item-container">
+      <div className="class-catalog-item-container" onClick={() => this.handleClick()}>
         <div className="image">
           <img src={classInformation.image} alt="class information" />
         </div>
@@ -29,7 +39,7 @@ class ClassItem extends PureComponent {
                 fullSymbol="fa fa-star fa-2x"
                 readonly
               />
-              <div className="voted">Проголосовано: {classInformation.voted}</div>
+              <div className="voted">Проголосов1ано: {classInformation.voted}</div>
             </div>
           </div>
         )}
