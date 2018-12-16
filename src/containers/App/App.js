@@ -14,7 +14,8 @@ import Alert from 'react-bootstrap/lib/Alert';
 import Helmet from 'react-helmet';
 import qs from 'qs';
 import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info';
-import { isLoaded as isAuthLoaded, load as loadAuth, logout as logoutAction } from 'redux/modules/auth';
+import { isLoaded as isAuthLoaded, load as loadAuth } from 'redux/modules/auth';
+import { logout as logoutAction, signIn } from 'redux/modules/user';
 import { Notifs } from 'components';
 import config from 'config';
 
@@ -26,6 +27,16 @@ const isAdvetiser = user => user && user.email === ADVETISER_USER;
 
 @provideHooks({
   fetch: async ({ store: { dispatch, getState } }) => {
+    if (
+      __CLIENT__
+      && localStorage
+      && localStorage.getItem('login')
+      && localStorage.getItem('password')
+      && localStorage.getItem('login') !== null
+      && localStorage.getItem('password') !== null
+    ) {
+      await dispatch(signIn(localStorage.getItem('login'), localStorage.getItem('password')));
+    }
     if (!isAuthLoaded(getState())) {
       await dispatch(loadAuth()).catch(() => null);
     }
@@ -37,7 +48,7 @@ const isAdvetiser = user => user && user.email === ADVETISER_USER;
 @connect(
   state => ({
     notifs: state.notifs,
-    user: state.auth.user
+    user: state.user.data.user
   }),
   { logout: logoutAction, pushState: push }
 )
@@ -107,6 +118,7 @@ class App extends Component {
   render() {
     const { notifs, route } = this.props;
     const { user } = this.state;
+    console.log('user', user);
     const styles = require('./App.scss');
     require('./App.scss');
     return (
@@ -177,7 +189,7 @@ class App extends Component {
                 <LinkContainer to="/logout" className="login-links">
                   <NavItem eventKey={7} className="logout-link" onClick={this.handleLogout}>
                     <span className="right">
-                      <strong>vhorobiukAdvetiser@gmail.com</strong>
+                      <strong>{user.login}</strong>
                     </span>
                     <i className="fa fa-sign-out" />
                   </NavItem>

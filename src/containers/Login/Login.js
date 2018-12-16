@@ -7,10 +7,11 @@ import LoginForm from 'components/LoginForm/LoginForm';
 import FacebookLogin from 'components/FacebookLogin/FacebookLogin';
 import * as authActions from 'redux/modules/auth';
 import * as notifActions from 'redux/modules/notifs';
+import * as userActions from 'redux/modules/user';
 
 @connect(
   state => ({ user: state.auth.user }),
-  { ...notifActions, ...authActions }
+  { ...notifActions, ...authActions, ...userActions }
 )
 @withRouter
 class Login extends Component {
@@ -21,6 +22,7 @@ class Login extends Component {
     login: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
     notifSend: PropTypes.func.isRequired,
+    signIn: PropTypes.func.isRequired,
     history: PropTypes.objectOf(PropTypes.any).isRequired
   };
 
@@ -53,12 +55,11 @@ class Login extends Component {
   };
 
   onLocalLogin = async data => {
-    const { login } = this.props;
+    const { signIn, history } = this.props;
 
-    const result = await login('local', data);
-    this.successLogin();
-
-    return result;
+    signIn(data.email, data.password).then(() => {
+      history.push('/catalog');
+    });
   };
 
   successLogin = () => {

@@ -12,6 +12,8 @@ const REGISTER_START = 'boogaloo/auth/REGISTER_START';
 const REGISTER_SUCCESS = 'boogaloo/auth/REGISTER_SUCCESS';
 const REGISTER_FAIL = 'boogaloo/auth/REGISTER_FAIL';
 
+const LOGOUT_SUCCESS = 'boogaloo/auth/LOGOUT_SUCCESS';
+
 const initialState = {
   signing: false,
   signed: false,
@@ -34,7 +36,14 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         signing: true
       };
-    case SIGN_SUCCESS:
+    case SIGN_SUCCESS: {
+      if (__CLIENT__ && localStorage) {
+        localStorage.setItem('user', action.result.data.user.id);
+        localStorage.setItem('email', action.result.data.user.email);
+        localStorage.setItem('login', action.result.data.user.login);
+        localStorage.setItem('password', action.notHashedPassword);
+        localStorage.setItem('token', action.result.data.token.token);
+      }
       return {
         ...state,
         signing: false,
@@ -42,6 +51,7 @@ export default function reducer(state = initialState, action = {}) {
         data: action.result.data,
         error: null
       };
+    }
     case SIGN_FAIL:
       return {
         ...state,
@@ -91,15 +101,48 @@ export default function reducer(state = initialState, action = {}) {
         isTokenValid: false,
         tokenError: action.error
       };
+    case LOGOUT_SUCCESS: {
+      if (__CLIENT__ && localStorage) {
+        localStorage.removeItem('user', null);
+        localStorage.removeItem('email', null);
+        localStorage.removeItem('login', null);
+        localStorage.removeItem('password', null);
+        localStorage.removeItem('token', null);
+      }
+      return {
+        signing: false,
+        signed: false,
+        data: {},
+        error: {},
+        registering: false,
+        registered: false,
+        registeredUser: {},
+        isTokenValid: false,
+        tokenChecking: false,
+        tokenError: {},
+        token: null,
+        currentUserId: null
+      };
+    }
     default:
       return state;
   }
 }
 
-export function signIn(login = 'admin', password = 'admin') {
+export function signIn(login = null, password = null) {
+  if (login !== null && password != null) {
+    return {
+      types: [SIGN_START, SIGN_SUCCESS, SIGN_FAIL],
+      promise: ({ client }) => client.get(`/sign?login=${login}&password=${password}`),
+      notHashedPassword: password
+    };
+  }
+  return new Promise(resolve => resolve());
+}
+
+export function logout() {
   return {
-    types: [SIGN_START, SIGN_SUCCESS, SIGN_FAIL],
-    promise: ({ client }) => client.get(`${config.apiHost}/sign?login=${login}&password=${password}`)
+    type: LOGOUT_SUCCESS
   };
 }
 

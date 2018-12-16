@@ -18,10 +18,8 @@ class Registration extends Component {
     user: PropTypes.shape({
       email: PropTypes.string
     }),
-    login: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
     registerNewUser: PropTypes.func.isRequired,
-    notifSend: PropTypes.func.isRequired,
     history: PropTypes.objectOf(PropTypes.any).isRequired
   };
 
@@ -33,49 +31,10 @@ class Registration extends Component {
     store: PropTypes.object
   };
 
-  onFacebookLogin = async (err, data) => {
-    if (err) return;
-
-    const { login, history } = this.props;
-
-    try {
-      await login('facebook', data);
-      this.successLogin();
-    } catch (error) {
-      if (error.message === 'Incomplete oauth registration') {
-        history.push({
-          pathname: '/register',
-          state: { oauth: error.data }
-        });
-      } else {
-        throw error;
-      }
-    }
-  };
-
-  onLocalLogin = async data => {
-    const { login } = this.props;
-
-    const result = await login('local', data);
-    this.successLogin();
-
-    return result;
-  };
-
   onRegistrationClick = async data => {
     const { registerNewUser, history } = this.props;
     registerNewUser(data).then(() => {
       history.push('/login');
-    });
-  };
-
-  successLogin = () => {
-    const { notifSend } = this.props;
-
-    notifSend({
-      message: "You're logged in now !",
-      kind: 'success',
-      dismissAfter: 2000
     });
   };
 
