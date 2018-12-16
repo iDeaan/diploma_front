@@ -19,11 +19,8 @@ import { logout as logoutAction, signIn } from 'redux/modules/user';
 import { Notifs } from 'components';
 import config from 'config';
 
-const SIMPLE_USER = 'volodia.gp@gmail.com';
-const ADVETISER_USER = 'vhorobiuk@gmail.com';
-
-const isSimpleUser = user => user && user.email === SIMPLE_USER;
-const isAdvetiser = user => user && user.email === ADVETISER_USER;
+const isSimpleUser = user => user && user.role === null;
+const isAdvetiser = user => user && user.role === 'advetiser';
 
 @provideHooks({
   fetch: async ({ store: { dispatch, getState } }) => {
@@ -146,7 +143,7 @@ class App extends Component {
                 </LinkContainer>
               )}
               {isSimpleUser(user) && (
-                <LinkContainer to="/catalog">
+                <LinkContainer to="/interests">
                   <NavItem eventKey={2}>Інтереси</NavItem>
                 </LinkContainer>
               )}

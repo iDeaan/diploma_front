@@ -15,14 +15,14 @@ import Profile from 'containers/Profile/Loadable';
 
 const isAuthenticated = connectedReduxRedirect({
   redirectPath: '/login',
-  authenticatedSelector: state => state.auth.user !== null,
+  authenticatedSelector: state => state.user.data.user !== null,
   redirectAction: routerActions.replace,
   wrapperDisplayName: 'UserIsAuthenticated'
 });
 
 const isNotAuthenticated = connectedReduxRedirect({
   redirectPath: '/',
-  authenticatedSelector: state => state.auth.user === null,
+  authenticatedSelector: state => state.user.data.user === null,
   redirectAction: routerActions.replace,
   wrapperDisplayName: 'UserIsAuthenticated',
   allowRedirectBack: false
@@ -39,7 +39,7 @@ const routes = [
       { path: '/registration', component: Registration },
       { path: '/item/:id', component: isAuthenticated(InterestsItem) },
       { path: '/catalog/:id', component: isAuthenticated(ClassCatalog) },
-      { path: '/catalog', component: isAuthenticated(Catalog) },
+      { path: '/interests', component: isAuthenticated(Catalog) },
       { path: '/login-success', component: isAuthenticated(LoginSuccess) },
       { path: '/register', component: isNotAuthenticated(Register) },
       { path: '/recommendations', component: Reccomendations },

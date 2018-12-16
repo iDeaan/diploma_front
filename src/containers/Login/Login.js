@@ -58,7 +58,7 @@ class Login extends Component {
     const { signIn, history } = this.props;
 
     signIn(data.email, data.password).then(() => {
-      history.push('/catalog');
+      history.push('/interests');
     });
   };
 

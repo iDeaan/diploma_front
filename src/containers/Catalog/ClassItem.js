@@ -35,7 +35,7 @@ class ClassItem extends PureComponent {
             <div className="title">{classInformation.title}</div>
             <div className="description">{classInformation.description}</div>
             <div className="count">
-              Кількість матеріалів: <span>{classInformation.count}</span>
+              Кількість матеріалів: <span>{classInformation.materials_number}</span>
             </div>
           </div>
         )}
