@@ -1,0 +1,52 @@
+:global {
+  .registration-container {
+    height: calc(100vh - 50px);
+
+    .tabs {
+      display: flex;
+      margin: 20px 0;
+      font-size: 18px;
+
+      .tab {
+        margin-right: 50px;
+        padding: 0 20px;
+
+        &.active {
+          border-bottom: solid 1px blue;
+        }
+      }
+    }
+
+    .form-section {
+      padding: 20px 20px 10px 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-horizontal {
+      .form-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      label {
+        font-size: 16px;
+        font-weight: 300;
+      }
+
+      button {
+        padding: 5px 50px;
+      }
+    }
+
+    .facebook-login {
+      margin-top: 20px;
+      font-size: 16px;
+
+      button {
+        margin-top: 20px;
+        padding: 7px 50px;
+      }
+    }
+  }
+}

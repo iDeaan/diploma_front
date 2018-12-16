@@ -32,13 +32,11 @@ const Select = ({
     </label>
     <div className="col-sm-10">
       <select {...input} {...rest} type={type} className="form-control">
-        {options && options.map(item => (
-          <option value={item.value}>{item.title}</option>
-        ))}
+        {options && options.map(item => <option value={item.value}>{item.title}</option>)}
       </select>
       {(error || submitError) && touched && <span className="glyphicon glyphicon-remove form-control-feedback" />}
       {(error || submitError)
-      && touched && (
+        && touched && (
         <div className="text-danger">
           <strong>{error || submitError}</strong>
         </div>
@@ -57,33 +55,32 @@ Input.propTypes = {
 const sexOptions = [
   {
     title: 'Чоловік',
-    value: 'Жінка'
+    value: '1'
   },
   {
-    title: 'Female',
-    value: 'Female'
+    title: 'Жінка',
+    value: '0'
   }
 ];
 
 const maritalOptions = [
   {
-    title: 'Не одружений',
-    value: 'Male'
+    title: 'Вільний(а)',
+    value: '0'
   },
   {
-    title: 'Female',
-    value: 'Female'
+    title: 'Зайнятий(а)',
+    value: '1'
   }
 ];
 
-const LoginForm = ({
+const RegistrationUserForm = ({
   onSubmit, submitButtonName, submitButtonIcon, isSubmitting, initialValues
 }) => (
   <Form
-    onSubmit={values => {
-      if (isSubmitting) {
-        onSubmit(values).then(() => {}, err => err);
-      }
+    onSubmit={vals => {
+      console.log('vals', vals, onSubmit);
+      onSubmit(vals);
     }}
     validate={loginValidation}
     initialValues={initialValues}
@@ -93,7 +90,7 @@ const LoginForm = ({
           <Field name="name" type="text" component={Input} label="Ім'я" />
           <Field name="age" type="text" component={Input} label="Вік" />
           <Field name="gender" component={Select} label="Стать" options={sexOptions} />
-          <Field name="maritalStatus" component={Select} label="Шлюбний статус" options={maritalOptions} />
+          <Field name="maritalStatus" component={Select} label="Шлюбний стату1с" options={maritalOptions} />
         </div>
         <div className="form-section section-item-container">
           <Field name="login" type="text" component={Input} label="Login" />
@@ -118,19 +115,19 @@ const LoginForm = ({
   />
 );
 
-LoginForm.defaultProps = {
+RegistrationUserForm.defaultProps = {
   isSubmitting: true,
   submitButtonName: false,
   submitButtonIcon: false,
-  initialValues: {},
+  initialValues: {}
 };
 
-LoginForm.propTypes = {
+RegistrationUserForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool,
   submitButtonName: PropTypes.string,
   submitButtonIcon: PropTypes.string,
-  initialValues: PropTypes.object,
+  initialValues: PropTypes.object
 };
 
-export default LoginForm;
+export default RegistrationUserForm;

@@ -8,4 +8,5 @@ export NotFound from './NotFound/NotFound';
 export Catalog from './Catalog/Catalog';
 export ClassCatalog from './ClassCatalog/Catalog';
 export InterestsItem from './InterestsItem/InterestsItem';
+export Registration from './Registration/Registration';
 // export Register from './Register/Register';

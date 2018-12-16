@@ -26,7 +26,7 @@ const catalogItems = [
   },
   {
     id: 4,
-    title: 'Braveheart',
+    title: 'Хоробре серце',
     image: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/55/Braveheart_imp.jpg/220px-Braveheart_imp.jpg',
     voted: 12250,
     rating: 4
@@ -41,15 +41,8 @@ const catalogItems = [
   },
   {
     id: 6,
-    title: 'Jurassic park',
+    title: 'Парк Юрського періоду',
     image: 'https://static.tvgcdn.net/feed/1/62/thumbs/117994062_1300x1733.jpg',
-    voted: 1220,
-    rating: 5
-  },
-  {
-    id: 7,
-    title: 'The Lord of the Rings: The Fellowship of the Ring',
-    image: 'https://images-na.ssl-images-amazon.com/images/I/A1cENmAtYsL._RI_.jpg',
     voted: 1220,
     rating: 5
   }

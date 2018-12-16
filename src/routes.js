@@ -6,6 +6,7 @@ import Chat from 'containers/Chat/Loadable';
 import Login from 'containers/Login/Loadable';
 import LoginSuccess from 'containers/LoginSuccess/Loadable';
 import Register from 'containers/Register/Loadable';
+import Registration from 'containers/Registration/Loadable';
 import Catalog from 'containers/Catalog/Loadable';
 import ClassCatalog from 'containers/ClassCatalog/Loadable';
 import InterestsItem from 'containers/InterestsItem/Loadable';
@@ -35,13 +36,14 @@ const routes = [
       { path: '/about', component: About },
       { path: '/chat', component: Chat },
       { path: '/login', component: Login },
+      { path: '/registration', component: Registration },
       { path: '/item/:id', component: isAuthenticated(InterestsItem) },
       { path: '/catalog/:id', component: isAuthenticated(ClassCatalog) },
       { path: '/catalog', component: isAuthenticated(Catalog) },
       { path: '/login-success', component: isAuthenticated(LoginSuccess) },
       { path: '/register', component: isNotAuthenticated(Register) },
-      { path: '/recommendations', component: (Reccomendations) },
-      { path: '/profile', component: (Profile) },
+      { path: '/recommendations', component: Reccomendations },
+      { path: '/profile', component: Profile },
       { component: NotFound }
     ]
   }

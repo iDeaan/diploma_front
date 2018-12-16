@@ -3,23 +3,24 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import LoginForm from 'components/LoginForm/LoginForm';
-import FacebookLogin from 'components/FacebookLogin/FacebookLogin';
+import RegistrationForm from 'components/RegistrationForm/RegistrationForm';
 import * as authActions from 'redux/modules/auth';
 import * as notifActions from 'redux/modules/notifs';
+import * as usersActions from 'redux/modules/user';
 
 @connect(
   state => ({ user: state.auth.user }),
-  { ...notifActions, ...authActions }
+  { ...notifActions, ...authActions, ...usersActions }
 )
 @withRouter
-class Login extends Component {
+class Registration extends Component {
   static propTypes = {
     user: PropTypes.shape({
       email: PropTypes.string
     }),
     login: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
+    registerNewUser: PropTypes.func.isRequired,
     notifSend: PropTypes.func.isRequired,
     history: PropTypes.objectOf(PropTypes.any).isRequired
   };
@@ -61,6 +62,13 @@ class Login extends Component {
     return result;
   };
 
+  onRegistrationClick = async data => {
+    const { registerNewUser, history } = this.props;
+    registerNewUser(data).then(() => {
+      history.push('/login');
+    });
+  };
+
   successLogin = () => {
     const { notifSend } = this.props;
 
@@ -71,38 +79,22 @@ class Login extends Component {
     });
   };
 
-  FacebookLoginButton = ({ facebookLogin }) => (
-    <button type="button" className="btn btn-primary" onClick={facebookLogin}>
-      Login with <i className="fa fa-facebook-f" />
-    </button>
-  );
-
   render() {
     const { user, logout, history } = this.props;
-    require('./Login.scss');
+    require('./Registration.scss');
     return (
-      <div className="container login-container">
+      <div className="container registration-container con-item">
         <div className="tabs">
-          <div className="tab active">Авторизація</div>
-          <div className="tab" onClick={() => history.push('/registration')}>
-            Реєстрація
+          <div className="tab" onClick={() => history.push('/login')}>
+            Авторизація
           </div>
+          <div className="tab active">Реєстрація</div>
         </div>
         <div>
-          <Helmet title="Login" />
+          <Helmet title="Registration" />
           {!user && (
             <div>
-              <LoginForm onSubmit={this.onLocalLogin} />
-              <div className="facebook-login section-item-container form-section">
-                <div className="fb-text">Ви також можете авторизуватись через свій акаунт Facebook</div>
-                <FacebookLogin
-                  appId="389251578512583"
-                  /* autoLoad={true} */
-                  fields="name,email,picture"
-                  onLogin={this.onFacebookLogin}
-                  component={this.FacebookLoginButton}
-                />
-              </div>
+              <RegistrationForm onSubmit={this.onRegistrationClick} />
             </div>
           )}
           {user && (
@@ -125,4 +117,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Registration;
