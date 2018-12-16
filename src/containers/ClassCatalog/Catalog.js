@@ -5,45 +5,50 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 // import { push } from 'react-router-redux';
-import { getInterests as GI } from 'redux/modules/interests';
+import { getCurrentInterest as GCI } from 'redux/modules/interests';
 
 import ClassItem from './ClassItem';
 
 @connect(
   state => ({
-    interests: state.interests.data
+    currentInterest: state.interests.currentInterest
   }),
-  { getInterests: GI }
+  { getCurrentInterest: GCI }
 )
 @withRouter
 class ClassCatalog extends Component {
   static propTypes = {
-    getInterests: PropTypes.func.isRequired,
-    interests: PropTypes.array
+    getCurrentInterest: PropTypes.func.isRequired,
+    match: PropTypes.object.isRequired,
+    currentInterest: PropTypes.object
   };
 
   static defaultProps = {
-    interests: []
+    currentInterest: {}
   };
 
   componentDidMount() {
-    const { getInterests } = this.props;
-    getInterests();
+    const { match } = this.props;
+    const { params } = match;
+
+    const { getCurrentInterest } = this.props;
+    getCurrentInterest(params.id);
   }
 
   render() {
-    const { interests } = this.props;
-    console.log('interests', interests);
-    const catalogItems = [];
+    const { currentInterest } = this.props;
+
     require('./ClassCatalog.scss');
     return (
       <div className="container class-catalog-page-container">
         <Helmet title="Home" />
-        <h1 className="page-title">Каталог фільмів</h1>
+        <h1 className="page-title">Каталог "{currentInterest.title}"</h1>
         <div className="classes-catalog">
-          {catalogItems.map(catalogItem => (
-            <ClassItem classInformation={catalogItem} />
-          ))}
+          {currentInterest.materials && currentInterest.materials.length ? (
+            currentInterest.materials.map(catalogItem => <ClassItem classInformation={catalogItem} />)
+          ) : (
+            <h2>На даний момент не має жодного запису в поточному каталозі</h2>
+          )}
         </div>
       </div>
     );

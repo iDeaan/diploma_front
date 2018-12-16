@@ -14,9 +14,9 @@ class ClassItem extends PureComponent {
   };
 
   handleClick() {
-    const { history } = this.props;
+    const { history, classInformation } = this.props;
     history.push({
-      pathname: '/catalog/1'
+      pathname: `/interests/${classInformation.id}`
     });
   }
 

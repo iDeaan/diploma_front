@@ -5,7 +5,7 @@ export Home from './Home/Home';
 // export Login from './Login/Login';
 // export LoginSuccess from './LoginSuccess/LoginSuccess';
 export NotFound from './NotFound/NotFound';
-export Catalog from './Catalog/Catalog';
+export Catalog from './Interests/Catalog';
 export ClassCatalog from './ClassCatalog/Catalog';
 export InterestsItem from './InterestsItem/InterestsItem';
 export Registration from './Registration/Registration';

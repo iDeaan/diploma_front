@@ -20,9 +20,9 @@ const musicImage = require('./music.jpg');
 const travellingImage = require('./travelling.jpg');
 const crosswordsImage = require('./crosswords.jpeg');
 
-const BI = require('../Catalog/books.jpg');
-const FI = require('../Catalog/film.jpg');
-const MI = require('../Catalog/music.jpeg');
+const BI = require('../Interests/books.jpg');
+const FI = require('../Interests/film.jpg');
+const MI = require('../Interests/music.jpeg');
 
 const recommendationItems = [
   {
@@ -275,4 +275,4 @@ export default class Catalog extends Component {
   }
 }
 
-// export default Catalog;
+// export default Interests;

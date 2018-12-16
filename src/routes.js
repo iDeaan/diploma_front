@@ -7,7 +7,7 @@ import Login from 'containers/Login/Loadable';
 import LoginSuccess from 'containers/LoginSuccess/Loadable';
 import Register from 'containers/Register/Loadable';
 import Registration from 'containers/Registration/Loadable';
-import Catalog from 'containers/Catalog/Loadable';
+import Catalog from 'containers/Interests/Loadable';
 import ClassCatalog from 'containers/ClassCatalog/Loadable';
 import InterestsItem from 'containers/InterestsItem/Loadable';
 import Reccomendations from 'containers/Reccomendations/Loadable';
@@ -38,7 +38,7 @@ const routes = [
       { path: '/login', component: Login },
       { path: '/registration', component: Registration },
       { path: '/item/:id', component: isAuthenticated(InterestsItem) },
-      { path: '/catalog/:id', component: isAuthenticated(ClassCatalog) },
+      { path: '/interests/:id', component: isAuthenticated(ClassCatalog) },
       { path: '/interests', component: isAuthenticated(Catalog) },
       { path: '/login-success', component: isAuthenticated(LoginSuccess) },
       { path: '/register', component: isNotAuthenticated(Register) },
