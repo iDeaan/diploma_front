@@ -59,7 +59,7 @@ require('./Catalog.scss');
 const Catalog = () => (
   <div className="container catalog-page-container">
     <Helmet title="Home" />
-    <h1 className="page-title">Наявні зацікавлення</h1>
+    <h1 className="page-title">Наявні інтереси</h1>
     <div className="classes-catalog">
       {catalogItems.map(catalogItem => (
         <ClassItem classInformation={catalogItem} />

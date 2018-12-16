@@ -28,22 +28,6 @@ const commentsList = [
       + 'n also the beautiful and popular Maltese TV Star and actress Ruth Frendo, who although has a small part, she i'
       + 's totally brilliant and outstanding.',
     rating: 4.8
-  },
-  {
-    name: 'paulyub',
-    date: '7 September 2002',
-    title: 'One of the Greatest Movies Ever',
-    text:
-      'I love history, and to me, Gladiator is a masterpiece. It is the most accurate picture of the Roman'
-      + ' Empire Hollywood has ever put out. People declare Spartacus a masterpiece, but Gladiator far outdoes Spartacus'
-      + ' in quality. The costuming, the acting, the screenplay, the scenery, and the fighting styles made me think that'
-      + ' I had traveled back to 180 A.D. Russell Crowe is a true Hollywood tough guy, and he is superb in this movie.'
-      + ' Joaquin Phoenix is outstanding as a villain, one of the best in movie history. He played his character as if it'
-      + " were a psychologist's dream case. Connie Nielsen plays one of the strongest female characters that I have ever"
-      + ' seen. The choreographer of the action sequences was brilliant. Ridley Scott did an outstanding job in recreatig'
-      + ' the Empire, including the multitude of ethnic groups within the Empire and accurately depicting everyday life.'
-      + " If you're looking for insight into what the Roman Empire was like, this is a perfect depiction.",
-    rating: 4.5
   }
 ];
 

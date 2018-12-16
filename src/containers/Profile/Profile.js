@@ -73,7 +73,7 @@ const menuList = [
     value: 'general'
   },
   {
-    title: 'Зацікавлення',
+    title: 'Інтереси',
     value: 'interests',
     role: 'user'
   },
@@ -182,41 +182,42 @@ export default class Catalog extends Component {
                 ),
                 statistics: (
                   <div className="statistics-container section-item-container">
-                    <div className="section-main-title">Статистика для зацікавлення "Книги"</div>
+                    <div className="section-main-title">Статистика для інтересу "Книги"</div>
                     <div className="select-data">
                       <div className="key">Оберіть графік</div>
                       <div className="value">
                         <select>
-                          <option />
-                          <option>Графік розподілу людей за статтю</option>
                           <option>Графік розподілу людей за віком</option>
+                          <option>Графік розподілу людей за статтю</option>
                           <option>Графік розподілу людей за роботою</option>
+
                           <option>Графік розподілу людей за шлюбним статусом</option>
                         </select>
                       </div>
                     </div>
                     <div style={{ display: 'none' }}>
                       <PieChart data={[['Чоловіки', 39], ['Жінки', 61]]} />
-                      <ColumnChart
-                        data={[['10-20', 11], ['20-30', 34], ['30-40', 27], ['40-50', 12], ['50-60', 16], ['70-80', 0]]}
-                      />
                       <PieChart data={[['Не в стосунках', 24], ['В стосунках', 76]]} />
+
+                      <PieChart
+                        data={[
+                          ['Безробітні', 12],
+                          ['Викладачі', 44],
+                          ['ІТ-сфера', 21],
+                          ['Таксит', 7],
+                          ['Лікар', 13],
+                          ['Спортсмен', 3]
+                        ]}
+                      />
                     </div>
-                    <PieChart
-                      data={[
-                        ['Безробітні', 12],
-                        ['Викладачі', 44],
-                        ['ІТ-сфера', 21],
-                        ['Таксит', 7],
-                        ['Лікар', 13],
-                        ['Спортсмен', 3]
-                      ]}
+                    <ColumnChart
+                      data={[['10-20', 11], ['20-30', 34], ['30-40', 27], ['40-50', 12], ['50-60', 16], ['70-80', 0]]}
                     />
                   </div>
                 ),
                 advetisments: (
                   <div className="statistics-container section-item-container">
-                    <div className="section-main-title">Рекламні матераіли для зацікавлення "Книги"</div>
+                    <div className="section-main-title">Рекламні матераіли для інтересу "Книги"</div>
                     <div className="advetisments-table">
                       <table style={{ width: '100%' }}>
                         <tr>

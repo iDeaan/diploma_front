@@ -135,7 +135,7 @@ class App extends Component {
               )}
               {isSimpleUser(user) && (
                 <LinkContainer to="/catalog">
-                  <NavItem eventKey={2}>Зацікавлення</NavItem>
+                  <NavItem eventKey={2}>Інтереси</NavItem>
                 </LinkContainer>
               )}
               {isSimpleUser(user) && (
@@ -177,8 +177,7 @@ class App extends Component {
                 <LinkContainer to="/logout" className="login-links">
                   <NavItem eventKey={7} className="logout-link" onClick={this.handleLogout}>
                     <span className="right">
-                      Авторизовані, як&nbsp;
-                      <strong>{user.email}</strong>
+                      <strong>vhorobiukAdvetiser@gmail.com</strong>
                     </span>
                     <i className="fa fa-sign-out" />
                   </NavItem>
