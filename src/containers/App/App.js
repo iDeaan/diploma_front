@@ -183,6 +183,13 @@ class App extends Component {
                 </LinkContainer>
               )}
               {user && (
+                <LinkContainer to="/profile/general" className="login-links">
+                  <NavItem eventKey={7} className="logout-link">
+                    <span className="right">Мій профіль</span>
+                  </NavItem>
+                </LinkContainer>
+              )}
+              {user && (
                 <LinkContainer to="/logout" className="login-links">
                   <NavItem eventKey={7} className="logout-link" onClick={this.handleLogout}>
                     <span className="right">
