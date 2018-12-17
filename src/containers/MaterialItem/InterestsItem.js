@@ -15,23 +15,14 @@ const commentsList = [
     name: 'Volodymyr',
     date: '15 November 2019',
     title: 'Крутий фільм!',
-    text: 'Кращий історичний фільм, що я бачив!!!',
+    text: 'Кращий фільм, що я бачив!!!',
     rating: 5
   },
   {
     name: 'Russell_',
     date: '12 September 2005',
     title: 'Не можна пропустити!',
-    text:
-      '"Gladiator" definitely is a classic film as it combines a simple, but moving, story with beautiful scenery,'
-      + ' filming, direction and score  it is truly a "complete" movie.\n'
-      + 'I am mostly compelled with the beautiful script which in a way reminds me of poetry, though it is still '
-      + 'everyday language. I love the acting portrayed by the late Oliver Reed and also Richard Harris.'
-      + 'Russell Crowe, Djimon Housou and Joaquin Phoenix are also superb and the parts suit them perfectly.'
-      + 'There are also a number of less "popular" artists who also deserve a big "bravo". Amongst them I have to'
-      + ' mention ex-Mr Universe Ralph Moeller who is mostly used as the comic relief of the movie. In Gladiator we ca'
-      + 'n also the beautiful and popular Maltese TV Star and actress Ruth Frendo, who although has a small part, she i'
-      + 's totally brilliant and outstanding.',
+    text: 'Справді кращий фільм',
     rating: 4.8
   }
 ];

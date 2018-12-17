@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import RecommendationItem from './ReccomendationItem';
 
@@ -56,16 +56,36 @@ const recommendationItems = [
 
 require('./Reccomendations.scss');
 
-const Catalog = () => (
-  <div className="container catalog-page-container">
-    <Helmet title="Home" />
-    <h1 className="page-title">Рекомендація нових інтересів</h1>
-    <div className="recommendations-catalog">
-      {recommendationItems.map(recommendationItem => (
-        <RecommendationItem recommendationInformation={recommendationItem} />
-      ))}
-    </div>
-  </div>
-);
+class Catalog extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isToRender: false
+    };
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ isToRender: true });
+    }, 2300);
+  }
+
+  render() {
+    const { isToRender } = this.state;
+    return (
+      <div className="container catalog-page-container">
+        <Helmet title="Home" />
+        <h1 className="page-title">Рекомендація нових інтересів</h1>
+        <div className="recommendations-catalog">
+          {!isToRender ? <h4>Формуються рекомендації</h4> : ''}
+          {isToRender
+            && recommendationItems.map(recommendationItem => (
+              <RecommendationItem recommendationInformation={recommendationItem} />
+            ))}
+        </div>
+      </div>
+    );
+  }
+}
 
 export default Catalog;
