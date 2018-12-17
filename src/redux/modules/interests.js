@@ -2,13 +2,18 @@ const INTERESTS_START = 'redux-examples/interests/INTERESTS_START';
 const INTERESTS_SUCCESS = 'redux-examples/interests/INTERESTS_SUCCESS';
 const INTERESTS_FAIL = 'redux-examples/interests/INTERESTS_FAIL';
 
+const FULL_INTERESTS_START = 'redux-examples/interests/FULL_INTERESTS_START';
+const FULL_INTERESTS_SUCCESS = 'redux-examples/interests/FULL_INTERESTS_SUCCESS';
+const FULL_INTERESTS_FAIL = 'redux-examples/interests/FULL_INTERESTS_FAIL';
+
 const INTERESTS_MAT_START = 'redux-examples/interests/INTERESTS_MAT_START';
 const INTERESTS_MAT_SUCCESS = 'redux-examples/interests/INTERESTS_MAT_SUCCESS';
 const INTERESTS_MAT_FAIL = 'redux-examples/interests/INTERESTS_MAT_FAIL';
 
 const initialState = {
   data: [],
-  currentInterest: {}
+  currentInterest: {},
+  full: []
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -31,6 +36,24 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         data: [],
         currentInterest: {}
+      };
+    }
+    case FULL_INTERESTS_START: {
+      return {
+        ...state,
+        full: []
+      };
+    }
+    case FULL_INTERESTS_SUCCESS: {
+      return {
+        ...state,
+        full: action.result.data
+      };
+    }
+    case FULL_INTERESTS_FAIL: {
+      return {
+        ...state,
+        full: []
       };
     }
     case INTERESTS_MAT_START: {
@@ -76,5 +99,12 @@ export function getCurrentInterest(interestId) {
   return {
     types: [INTERESTS_MAT_START, INTERESTS_MAT_SUCCESS, INTERESTS_MAT_FAIL],
     promise: async ({ client }) => client.get(`/interests?where=(id*=*${interestId})&relations=materials`)
+  };
+}
+
+export function getFullInterests() {
+  return {
+    types: [FULL_INTERESTS_START, FULL_INTERESTS_SUCCESS, FULL_INTERESTS_FAIL],
+    promise: async ({ client }) => client.get('/interests')
   };
 }

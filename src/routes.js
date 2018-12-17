@@ -12,6 +12,7 @@ import ClassCatalog from 'containers/ClassCatalog/Loadable';
 import InterestsItem from 'containers/MaterialItem/Loadable';
 import Reccomendations from 'containers/Reccomendations/Loadable';
 import ProfileGeneralInformation from 'containers/ProfileGeneralInformation/Loadable';
+import ProfileInterests from 'containers/ProfileInterests/Loadable';
 // import Profile from 'containers/Profile/Loadable';
 
 const isAuthenticated = connectedReduxRedirect({
@@ -44,6 +45,7 @@ const routes = [
       { path: '/login-success', component: isAuthenticated(LoginSuccess) },
       { path: '/register', component: isNotAuthenticated(Register) },
       { path: '/recommendations', component: Reccomendations },
+      { path: '/profile/interests', component: ProfileInterests },
       { path: '/profile/general', component: ProfileGeneralInformation },
       // { path: '/profile', component: Profile },
       { component: NotFound }
