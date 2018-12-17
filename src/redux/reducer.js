@@ -7,6 +7,7 @@ import info from './modules/info';
 import user from './modules/user';
 import interests from './modules/interests';
 import material from './modules/material';
+import advetisments from './modules/advetisments';
 
 export default function createReducers(asyncReducers) {
   return {
@@ -17,6 +18,7 @@ export default function createReducers(asyncReducers) {
     user,
     interests,
     material,
+    advetisments,
     counter: multireducer({
       counter1: counter,
       counter2: counter,

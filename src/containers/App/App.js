@@ -154,7 +154,7 @@ class App extends Component {
               )}
               {isAdvetiser(user) && (
                 <LinkContainer to="/recommendations">
-                  <NavItem eventKey={2}>fds</NavItem>
+                  <NavItem eventKey={2}>&nbsp;</NavItem>
                 </LinkContainer>
               )}
               {/*

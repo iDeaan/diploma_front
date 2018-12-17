@@ -36,7 +36,7 @@ const menuList = [
   state => ({
     user: state.user.data.user,
     full: state.interests.full,
-    usersInterests: state.interests.data
+    userInterests: state.interests.data
   }),
   {
     getInterestsListById: GIById,
@@ -77,9 +77,6 @@ class ProfileInterests extends Component {
       })
       .sort((first, second) => second.liked - first.liked);
 
-    console.log('=> us1er', user);
-    console.log('=> userInterests', userInterests);
-    console.log('=> full', full);
     require('./ProfileInterests.scss');
     return (
       <div className="container profile-page-container">
