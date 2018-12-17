@@ -22,7 +22,7 @@ const menuList = [
     title: 'Статистика інтересів та класів',
     value: 'statistics',
     role: 'advetiser',
-    href: '/profile/statistics'
+    href: '/profile/statistics/age'
   },
   {
     title: 'Управління рекламою',

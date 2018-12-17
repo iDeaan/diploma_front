@@ -15,6 +15,7 @@ import ProfileGeneralInformation from 'containers/ProfileGeneralInformation/Load
 import ProfileInterests from 'containers/ProfileInterests/Loadable';
 import ProfileAdvetisments from 'containers/ProfileAdvetisments/Loadable';
 import ProfileAdvetismentItem from 'containers/ProfileAdvetismentItem/Loadable';
+import ProfileStatisticsAge from 'containers/ProfileStatisticsAge/Loadable';
 // import Profile from 'containers/Profile/Loadable';
 
 const isAuthenticated = connectedReduxRedirect({
@@ -49,6 +50,7 @@ const routes = [
       { path: '/recommendations', component: Reccomendations },
       { path: '/profile/interests', component: ProfileInterests },
       { path: '/profile/general', component: ProfileGeneralInformation },
+      { path: '/profile/statistics/age', component: ProfileStatisticsAge },
       { path: '/profile/advetisments/:id', component: ProfileAdvetismentItem },
       { path: '/profile/advetisments', component: ProfileAdvetisments },
       // { path: '/profile', component: Profile },
