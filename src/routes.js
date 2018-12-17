@@ -14,6 +14,7 @@ import Reccomendations from 'containers/Reccomendations/Loadable';
 import ProfileGeneralInformation from 'containers/ProfileGeneralInformation/Loadable';
 import ProfileInterests from 'containers/ProfileInterests/Loadable';
 import ProfileAdvetisments from 'containers/ProfileAdvetisments/Loadable';
+import ProfileAdvetismentItem from 'containers/ProfileAdvetismentItem/Loadable';
 // import Profile from 'containers/Profile/Loadable';
 
 const isAuthenticated = connectedReduxRedirect({
@@ -48,6 +49,7 @@ const routes = [
       { path: '/recommendations', component: Reccomendations },
       { path: '/profile/interests', component: ProfileInterests },
       { path: '/profile/general', component: ProfileGeneralInformation },
+      { path: '/profile/advetisments/:id', component: ProfileAdvetismentItem },
       { path: '/profile/advetisments', component: ProfileAdvetisments },
       // { path: '/profile', component: Profile },
       { component: NotFound }
