@@ -48,6 +48,7 @@ const menuList = [
 @withRouter
 class ProfileAdvetisments extends Component {
   static propTypes = {
+    history: PropTypes.objectOf(PropTypes.any).isRequired,
     getUserAdd: PropTypes.func.isRequired,
     getInterests: PropTypes.func.isRequired,
     user: PropTypes.object,
@@ -69,7 +70,7 @@ class ProfileAdvetisments extends Component {
   }
 
   render() {
-    const { user, interests } = this.props;
+    const { user, interests, history } = this.props;
     require('./ProfileAdvetisments.scss');
     return (
       <div className="container profile-page-container">
@@ -111,7 +112,15 @@ class ProfileAdvetisments extends Component {
                         <img style={{ width: '75px' }} src={item.image} alt="materials" />
                       </td>
                       <td>
-                        <button className="btn btn-success">Перейти до інтересу</button>
+                        <button
+                          className="btn btn-success"
+                          onClick={() => history.push({
+                            pathname: `/profile/advetisments/${item.id}`
+                          })
+                          }
+                        >
+                          Перейти до інтересу
+                        </button>
                       </td>
                     </tr>
                   ))}
