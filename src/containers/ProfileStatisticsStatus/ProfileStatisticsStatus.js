@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 
-import ReactChartkick, { PieChart, ColumnChart } from 'react-chartkick';
+import ReactChartkick, { PieChart } from 'react-chartkick';
 import Chart from 'chart.js';
 import PropTypes from 'prop-types';
 import connect from 'react-redux/es/connect/connect';
@@ -9,7 +9,7 @@ import { withRouter } from 'react-router';
 
 ReactChartkick.addAdapter(Chart);
 
-require('./ProfileStatisticsAge.scss');
+require('./ProfileStatisticsStatus.scss');
 
 const menuList = [
   {
@@ -40,7 +40,7 @@ const menuList = [
   user: state.user.data.user
 }))
 @withRouter
-class ProfileStatisticsAge extends Component {
+class ProfileStatisticsStatus extends Component {
   static propTypes = {
     history: PropTypes.objectOf(PropTypes.any).isRequired,
     user: PropTypes.object
@@ -81,7 +81,7 @@ class ProfileStatisticsAge extends Component {
               <div className="select-data">
                 <div className="key">Оберіть графік</div>
                 <div className="value">
-                  <select onChange={this.handleChange} value="age">
+                  <select onChange={this.handleChange} value="status">
                     <option value="age">Графік розподілу людей за віком</option>
                     <option value="gender">Графік розподілу людей за статтю</option>
                     <option value="work">Графік розподілу людей за роботою</option>
@@ -89,24 +89,7 @@ class ProfileStatisticsAge extends Component {
                   </select>
                 </div>
               </div>
-              <div style={{ display: 'none' }}>
-                <PieChart data={[['Чоловіки', 39], ['Жінки', 61]]} />
-                <PieChart data={[['Не в стосунках', 24], ['В стосунках', 76]]} />
-
-                <PieChart
-                  data={[
-                    ['Безробітні', 12],
-                    ['Викладачі', 44],
-                    ['ІТ-сфера', 21],
-                    ['Таксит', 7],
-                    ['Лікар', 13],
-                    ['Спортсмен', 3]
-                  ]}
-                />
-              </div>
-              <ColumnChart
-                data={[['10-20', 11], ['20-30', 34], ['30-40', 27], ['40-50', 12], ['50-60', 16], ['70-80', 0]]}
-              />
+              <PieChart data={[['Не в стосунках', 43], ['В стосунках', 57]]} />
             </div>
           </div>
         </div>
@@ -115,4 +98,4 @@ class ProfileStatisticsAge extends Component {
   }
 }
 
-export default ProfileStatisticsAge;
+export default ProfileStatisticsStatus;

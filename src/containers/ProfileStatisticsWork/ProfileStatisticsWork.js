@@ -9,7 +9,7 @@ import { withRouter } from 'react-router';
 
 ReactChartkick.addAdapter(Chart);
 
-require('./ProfileStatisticsAge.scss');
+require('./ProfileStatisticsWork.scss');
 
 const menuList = [
   {
@@ -40,7 +40,7 @@ const menuList = [
   user: state.user.data.user
 }))
 @withRouter
-class ProfileStatisticsAge extends Component {
+class ProfileStatisticsWork extends Component {
   static propTypes = {
     history: PropTypes.objectOf(PropTypes.any).isRequired,
     user: PropTypes.object
@@ -81,7 +81,7 @@ class ProfileStatisticsAge extends Component {
               <div className="select-data">
                 <div className="key">Оберіть графік</div>
                 <div className="value">
-                  <select onChange={this.handleChange} value="age">
+                  <select onChange={this.handleChange}>
                     <option value="age">Графік розподілу людей за віком</option>
                     <option value="gender">Графік розподілу людей за статтю</option>
                     <option value="work">Графік розподілу людей за роботою</option>
@@ -115,4 +115,4 @@ class ProfileStatisticsAge extends Component {
   }
 }
 
-export default ProfileStatisticsAge;
+export default ProfileStatisticsWork;
