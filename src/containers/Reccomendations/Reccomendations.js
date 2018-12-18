@@ -78,10 +78,12 @@ class Catalog extends Component {
         <h1 className="page-title">Рекомендація нових інтересів</h1>
         <div className="recommendations-catalog">
           {!isToRender ? <h4>Формуються рекомендації</h4> : ''}
-          {isToRender
-            && recommendationItems.map(recommendationItem => (
-              <RecommendationItem recommendationInformation={recommendationItem} />
-            ))}
+          <div style={{ display: 'none' }}>
+            {isToRender
+              && recommendationItems.map(recommendationItem => (
+                <RecommendationItem recommendationInformation={recommendationItem} />
+              ))}
+          </div>
         </div>
       </div>
     );
