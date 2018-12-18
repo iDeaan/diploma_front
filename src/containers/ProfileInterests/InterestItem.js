@@ -1,16 +1,18 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
 
-@withRouter
-class ClassItem extends PureComponent {
+class ClassItem extends Component {
   static propTypes = {
+    createUserInterest: PropTypes.func.isRequired,
+    deleteUserInterest: PropTypes.func.isRequired,
+    getInterestsListById: PropTypes.func.isRequired,
     recommendationInformation: PropTypes.object,
-    history: PropTypes.objectOf(PropTypes.any).isRequired
+    user: PropTypes.object
   };
 
   static defaultProps = {
-    recommendationInformation: {}
+    recommendationInformation: {},
+    user: {}
   };
 
   constructor(props) {
@@ -20,10 +22,18 @@ class ClassItem extends PureComponent {
     };
   }
 
-  handleClick() {
-    const { history } = this.props;
-    history.push({
-      pathname: '/catalog/1'
+  handleLikeClick() {
+    const {
+      user,
+      createUserInterest,
+      deleteUserInterest,
+      recommendationInformation,
+      getInterestsListById
+    } = this.props;
+
+    const currentFunction = recommendationInformation.liked ? deleteUserInterest : createUserInterest;
+    currentFunction(user.id, recommendationInformation.id).then(() => {
+      getInterestsListById(user.id);
     });
   }
 
@@ -41,8 +51,11 @@ class ClassItem extends PureComponent {
             <div className="title">{recommendationInformation.title}</div>
           </div>
           <div className="vote">
-            <div className="text">Вам цікава дана тема ?</div>
-            <i className={`fa ${recommendationInformation.liked ? 'fa-thumbs-up' : 'fa-thumbs-o-up'} fa-2x`} />
+            <div className="text">Вам {recommendationInformation.liked ? 'true' : 'false'} цікава дана тема 1? </div>
+            <i
+              className={`fa ${recommendationInformation.liked ? 'fa-thumbs-up' : 'fa-thumbs-o-up'} fa-2x`}
+              onClick={() => this.handleLikeClick()}
+            />
           </div>
           <div className="body">
             <div className="show-more" onClick={() => this.setState({ isDescriptionShowed: !isDescriptionShowed })}>

@@ -4,8 +4,13 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
-import { getInterestsListById as GIById, getFullInterests as GI } from 'redux/modules/interests';
-import RecommendationItem from '../Profile/InterestItem';
+import {
+  getInterestsListById as GIById,
+  getFullInterests as GI,
+  createUserInterest as CUI,
+  deleteUserInterest as DUI
+} from 'redux/modules/interests';
+import RecommendationItem from './InterestItem';
 
 const menuList = [
   {
@@ -40,7 +45,9 @@ const menuList = [
   }),
   {
     getInterestsListById: GIById,
-    getFullInterests: GI
+    getFullInterests: GI,
+    createUserInterest: CUI,
+    deleteUserInterest: DUI
   }
 )
 @withRouter
@@ -50,6 +57,8 @@ class ProfileInterests extends Component {
     full: PropTypes.array,
     userInterests: PropTypes.array,
     getInterestsListById: PropTypes.func.isRequired,
+    createUserInterest: PropTypes.func.isRequired,
+    deleteUserInterest: PropTypes.func.isRequired,
     getFullInterests: PropTypes.func.isRequired
   };
 
@@ -66,17 +75,28 @@ class ProfileInterests extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { userInterests } = this.props;
+    const { userInterests: nextUI } = nextProps;
+
+    if (userInterests !== nextUI) {
+      this.forceUpdate();
+    }
+  }
+
   render() {
-    const { user, userInterests, full } = this.props;
-
-    const resultInterests = full
-      .map(item => {
-        const currentUserInterest = userInterests.find(uInterest => uInterest.interest_id === item.id);
-        item.liked = !!currentUserInterest;
-        return item;
-      })
-      .sort((first, second) => second.liked - first.liked);
-
+    const {
+      user, userInterests, createUserInterest, deleteUserInterest, full, getInterestsListById
+    } = this.props;
+    const resultInterests = [
+      ...full
+        .map(item => {
+          const currentUserInterest = userInterests.find(uInterest => uInterest.interest_id === item.id);
+          item.liked = !!currentUserInterest;
+          return item;
+        })
+        .sort((first, second) => second.liked - first.liked)
+    ];
     require('./ProfileInterests.scss');
     return (
       <div className="container profile-page-container">
@@ -100,7 +120,15 @@ class ProfileInterests extends Component {
           <div className="profile-content">
             <div className="recommendations-catalog">
               {resultInterests && resultInterests.length
-                ? resultInterests.map(interest => <RecommendationItem recommendationInformation={interest} />)
+                ? resultInterests.map(interest => (
+                  <RecommendationItem
+                    user={user}
+                    getInterestsListById={getInterestsListById}
+                    createUserInterest={createUserInterest}
+                    deleteUserInterest={deleteUserInterest}
+                    recommendationInformation={interest}
+                  />
+                ))
                 : ''}
             </div>
           </div>

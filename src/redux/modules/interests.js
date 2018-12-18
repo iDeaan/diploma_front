@@ -10,6 +10,14 @@ const INTERESTS_MAT_START = 'redux-examples/interests/INTERESTS_MAT_START';
 const INTERESTS_MAT_SUCCESS = 'redux-examples/interests/INTERESTS_MAT_SUCCESS';
 const INTERESTS_MAT_FAIL = 'redux-examples/interests/INTERESTS_MAT_FAIL';
 
+const CREATE_UI_START = 'redux-examples/interests/CREATE_UI_START';
+const CREATE_UI_SUCCESS = 'redux-examples/interests/CREATE_UI_SUCCESS';
+const CREATE_UI_FAIL = 'redux-examples/interests/CREATE_UI_FAIL';
+
+const DELETE_UI_START = 'redux-examples/interests/DELETE_UI_START';
+const DELETE_UI_SUCCESS = 'redux-examples/interests/DELETE_UI_SUCCESS';
+const DELETE_UI_FAIL = 'redux-examples/interests/DELETE_UI_FAIL';
+
 const initialState = {
   data: [],
   currentInterest: {},
@@ -76,9 +84,41 @@ export default function reducer(state = initialState, action = {}) {
         currentInterest: {}
       };
     }
+    case CREATE_UI_START: {
+      return state;
+    }
+    case CREATE_UI_SUCCESS: {
+      return state;
+    }
+    case CREATE_UI_FAIL: {
+      return state;
+    }
+    case DELETE_UI_START: {
+      return state;
+    }
+    case DELETE_UI_SUCCESS: {
+      return state;
+    }
+    case DELETE_UI_FAIL: {
+      return state;
+    }
     default:
       return state;
   }
+}
+
+export function createUserInterest(userId, interestId) {
+  return {
+    types: [CREATE_UI_START, CREATE_UI_SUCCESS, CREATE_UI_FAIL],
+    promise: async ({ client }) => client.post(`/users_interests?userId=${userId}&interestId=${interestId}`)
+  };
+}
+
+export function deleteUserInterest(userId, interestId) {
+  return {
+    types: [DELETE_UI_START, DELETE_UI_SUCCESS, DELETE_UI_FAIL],
+    promise: async ({ client }) => client.delete(`/users_interests?userId=${userId}&interestId=${interestId}`)
+  };
 }
 
 export function getInterestsListById(userId) {
