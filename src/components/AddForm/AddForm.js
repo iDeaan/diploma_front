@@ -2,8 +2,6 @@ import React from 'react';
 import { Form, Field } from 'react-final-form';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
-import DatePicker from 'react-datepicker';
-import loginValidation from './addValidation';
 
 const Input = ({
   input, label, type, meta: { touched, error, submitError }, ...rest
@@ -25,44 +23,17 @@ const Input = ({
   </div>
 );
 
-// const Select = ({
-//   input, label, type, meta: { touched, error, submitError }, options, ...rest
-// }) => (
-//   <div className={`form-group ${(error || submitError) && touched ? 'has-error' : ''}`}>
-//     <label htmlFor={input.name} className="col-sm-2">
-//       {label}
-//     </label>
-//     <div className="col-sm-10">
-//       <select {...input} {...rest} type={type} className="form-control">
-//         {options && options.map(item => <option value={item.value}>{item.title}</option>)}
-//       </select>
-//       {(error || submitError) && touched && <span className="glyphicon glyphicon-remove form-control-feedback" />}
-//       {(error || submitError)
-//         && touched && (
-//         <div className="text-danger">
-//           <strong>{error || submitError}</strong>
-//         </div>
-//       )}
-//     </div>
-//   </div>
-// );
-
-const DateTimeInput = ({ input, label, meta: { touched, error, submitError } }) => (
+const Select = ({
+  input, label, type, meta: { touched, error, submitError }, options, ...rest
+}) => (
   <div className={`form-group ${(error || submitError) && touched ? 'has-error' : ''}`}>
     <label htmlFor={input.name} className="col-sm-2">
       {label}
     </label>
     <div className="col-sm-10">
-      <DatePicker
-        // selected={this.state.startDate}
-        // onChange={this.handleChange}
-        // showTimeSelect
-        // timeFormat="HH:mm"
-        // timeIntervals={15}
-        // dateFormat="MMMM d, yyyy h:mm aa"
-        // timeCaption="time"
-        inline
-      />
+      <select {...input} {...rest} type={type} className="form-control">
+        {options && options.map(item => <option value={item.value}>{item.title}</option>)}
+      </select>
       {(error || submitError) && touched && <span className="glyphicon glyphicon-remove form-control-feedback" />}
       {(error || submitError)
         && touched && (
@@ -73,12 +44,6 @@ const DateTimeInput = ({ input, label, meta: { touched, error, submitError } }) 
     </div>
   </div>
 );
-
-DateTimeInput.propTypes = {
-  input: PropTypes.objectOf(PropTypes.any).isRequired,
-  label: PropTypes.string.isRequired,
-  meta: PropTypes.objectOf(PropTypes.any).isRequired
-};
 
 const FileInput = ({ input, label, meta: { touched, error, submitError } }) => (
   <div className={`form-group ${(error || submitError) && touched ? 'has-error' : ''}`}>
@@ -113,45 +78,45 @@ Input.propTypes = {
   meta: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
-const LoginForm = ({
-  onSubmit, submitButtonName, submitButtonIcon, isSubmitting, initialValues
+const statusOptions = [
+  {
+    title: 'Активний',
+    value: '1'
+  },
+  {
+    title: 'Не активний',
+    value: '0'
+  }
+];
+
+const AddForm = ({
+  onSubmit, submitButtonName, submitButtonIcon, initialValues
 }) => (
   <Form
-    onSubmit={values => {
-      if (isSubmitting) {
-        onSubmit(values).then(() => {}, err => err);
-      }
-    }}
-    validate={loginValidation}
+    onSubmit={onSubmit}
     initialValues={initialValues}
     render={({ handleSubmit, submitError }) => (
       <form className="form-horizontal" onSubmit={handleSubmit}>
         <div className="form-section section-item-container">
           <Field name="title" type="text" component={Input} label="Заголовок" />
           <Field name="description" type="text" component={Input} label="Опис" />
-          <Field name="url" type="text" component={Input} label="Посилання, куди веде реклама" />
-          {/* <Field
-            name="gender"
-            component={Select}
-            label="Стать"
-            options={[
-              {
-                value: 'active',
-                title: 'Активний'
-              }
-            ]}
-          />
-          <Field name="maritalStatus" component={Select} label="Шлюбний статус" options={maritalOptions} /> */}
-          <Field name="image_src" type="text" component={FileInput} label="Зображеня" />
-          <Field name="begin_date" type="text" component={Input} label="Дата початку показу" />
-          <Field name="end_date" type="text" component={Input} label="Дата завершення показу" />
+          <Field name="link_to" type="text" component={Input} label="Посилання, куди веде реклама" />
+          <Field name="image_file" type="text" component={FileInput} label="Зображеня" />
+          <Field name="image" type="text" component={Input} label="Зображеня посилання" />
+          <Field name="status" type="text" component={Select} options={statusOptions} label="Статус" />
+          <Field name="begin_date" component={Input} type="date" label="Дата початку показу" />
+          <Field name="end_date" component={Input} type="date" label="Дата завершення показу" />
+          <div style={{ display: 'none' }}>
+            <Field name="advetiser_id" component={Input} type="text" />
+            <Field name="interest_id" component={Input} type="text" />
+          </div>
         </div>
         {submitError && (
           <p className="text-danger">
             <strong>{submitError}</strong>
           </p>
         )}
-        <button className="btn btn-success" type="submit">
+        <button className="btn btn-success" type="submit" onClick={() => console.log('click')}>
           <i className={`fa ${submitButtonIcon || 'fa-arrow-right'}`} /> {submitButtonName || 'Зареєструватись'}
         </button>
       </form>
@@ -159,19 +124,17 @@ const LoginForm = ({
   />
 );
 
-LoginForm.defaultProps = {
-  isSubmitting: true,
+AddForm.defaultProps = {
   submitButtonName: false,
   submitButtonIcon: false,
   initialValues: {}
 };
 
-LoginForm.propTypes = {
+AddForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  isSubmitting: PropTypes.bool,
+  initialValues: PropTypes.object,
   submitButtonName: PropTypes.string,
-  submitButtonIcon: PropTypes.string,
-  initialValues: PropTypes.object
+  submitButtonIcon: PropTypes.string
 };
 
-export default LoginForm;
+export default AddForm;

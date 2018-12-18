@@ -57,7 +57,9 @@ const adsList = [
 @withRouter
 class ProfileGeneralInformation extends Component {
   static propTypes = {
-    user: PropTypes.object
+    user: PropTypes.object,
+    history: PropTypes.objectOf(PropTypes.any).isRequired,
+    match: PropTypes.objectOf(PropTypes.any).isRequired
   };
 
   static defaultProps = {
@@ -65,7 +67,8 @@ class ProfileGeneralInformation extends Component {
   };
 
   render() {
-    const { user } = this.props;
+    const { user, history, match } = this.props;
+    const { params } = match;
 
     require('./ProfileAdvetismentItem.scss');
     return (
@@ -89,7 +92,7 @@ class ProfileGeneralInformation extends Component {
           </div>
           <div className="profile-content">
             <div className="statistics-container section-item-container">
-              <div className="section-main-title">Рекламні матераіли для інтересу "Книги"</div>
+              <div className="section-main-title">Рекламні матераіли для поточного інтересу</div>
               <div className="advetisments-table">
                 <table style={{ width: '100%' }}>
                   <tr>
@@ -114,7 +117,11 @@ class ProfileGeneralInformation extends Component {
                   ))}
                 </table>
               </div>
-              <button className="btn btn-success" style={{ marginTop: '20px' }}>
+              <button
+                className="btn btn-success"
+                style={{ marginTop: '20px' }}
+                onClick={() => history.push(`/profile/advetisments/${params.id}/create`)}
+              >
                 <i className="fa fa-add" />
                 Створити новий рекламний об'єкт
               </button>

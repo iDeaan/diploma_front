@@ -20,6 +20,7 @@ import ProfileStatisticsGender from 'containers/ProfileStatisticsGender/Loadable
 import ProfileStatisticsWork from 'containers/ProfileStatisticsWork/Loadable';
 import ProfileStatisticsStatus from 'containers/ProfileStatisticsStatus/Loadable';
 import ProfileInterestsStatistics from 'containers/ProfileInterestsStatistics/Loadable';
+import ProfileAdvetismentsCreate from 'containers/ProfileAdvetismentsCreate/Loadable';
 // import Profile from 'containers/Profile/Loadable';
 
 const isAuthenticated = connectedReduxRedirect({
@@ -59,6 +60,7 @@ const routes = [
       { path: '/profile/statistics/:id/work', component: ProfileStatisticsWork },
       { path: '/profile/statistics/:id/status', component: ProfileStatisticsStatus },
       { path: '/profile/statistics', component: ProfileInterestsStatistics },
+      { path: '/profile/advetisments/:id/create', component: ProfileAdvetismentsCreate },
       { path: '/profile/advetisments/:id', component: ProfileAdvetismentItem },
       { path: '/profile/advetisments', component: ProfileAdvetisments },
       // { path: '/profile', component: Profile },
