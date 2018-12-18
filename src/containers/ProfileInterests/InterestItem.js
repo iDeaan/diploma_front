@@ -51,7 +51,7 @@ class ClassItem extends Component {
             <div className="title">{recommendationInformation.title}</div>
           </div>
           <div className="vote">
-            <div className="text">Вам {recommendationInformation.liked ? 'true' : 'false'} цікава дана тема 1? </div>
+            <div className="text">Вам цікава дана тема ? </div>
             <i
               className={`fa ${recommendationInformation.liked ? 'fa-thumbs-up' : 'fa-thumbs-o-up'} fa-2x`}
               onClick={() => this.handleLikeClick()}

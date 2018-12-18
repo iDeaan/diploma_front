@@ -55,9 +55,7 @@ class ClassItem extends PureComponent {
             <div className="count">
               Кількість матеріалів: <span>{classInformation.materials_number}</span>
             </div>
-            {classInformation
-              && classInformation.advetisments
-              && advetisments.length && (
+            {classInformation && classInformation.advetisments && advetisments.length ? (
               <a
                 className="add-data"
                 onClick={event => this.handleAddClick(event, advetisments[0].id)}
@@ -69,6 +67,8 @@ class ClassItem extends PureComponent {
                 </div>
                 <div className="text">{advetisments[0].title}</div>
               </a>
+            ) : (
+              ''
             )}
           </div>
         )}
