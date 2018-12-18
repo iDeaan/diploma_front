@@ -45,5 +45,30 @@
         }
       }
     }
+
+    &.with-add {
+      > .description {
+        height: 270px;
+      }
+
+      .add-data {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 80px;
+        background: aliceblue;
+        padding: 10px;
+
+        img {
+          width: 60px;
+          height: 60px;
+        }
+
+        .text {
+          font-weight: bold;
+        }
+      }
+    }
   }
 }

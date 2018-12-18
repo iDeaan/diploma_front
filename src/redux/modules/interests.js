@@ -131,7 +131,7 @@ export function getInterestsListById(userId) {
 export function getInterests(idsList) {
   return {
     types: [INTERESTS_START, INTERESTS_SUCCESS, INTERESTS_FAIL],
-    promise: async ({ client }) => client.get(`/interests?where=(id*IN*${idsList.join(',')})`)
+    promise: async ({ client }) => client.get(`/interests?where=(id*IN*${idsList.join(',')})&relations=advetisments`)
   };
 }
 

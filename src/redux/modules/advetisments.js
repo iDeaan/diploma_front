@@ -6,6 +6,8 @@ const CREATE_NEW_ADD = 'redux-examples/advetisments/CREATE_NEW_ADD';
 
 const GET_ADVETISMENTS = 'redux-examples/advetisments/GET_ADVETISMENTS';
 
+const HANDLE_ADD_CLICK = 'redux-examples/advetisments/HANDLE_ADD_CLICK';
+
 const initialState = {
   addInterests: []
 };
@@ -40,6 +42,11 @@ export default function reducer(state = initialState, action = {}) {
         ...state
       };
     }
+    case HANDLE_ADD_CLICK: {
+      return {
+        ...state
+      };
+    }
     default:
       return state;
   }
@@ -63,5 +70,12 @@ export function getAdvetismentByAdvetiserAndInterest(advetiserId, interestId) {
   return {
     types: [GET_ADVETISMENTS, GET_ADVETISMENTS, GET_ADVETISMENTS],
     promise: async ({ client }) => client.get(`/advetisments?where=((advetiser_id*=*${advetiserId}),(interest_id*=*${interestId}))`)
+  };
+}
+
+export function handleAddClick(addId) {
+  return {
+    types: [HANDLE_ADD_CLICK, HANDLE_ADD_CLICK, HANDLE_ADD_CLICK],
+    promise: async ({ client }) => client.put(`http://localhost:3030/advetisments?advId=${addId}`)
   };
 }
