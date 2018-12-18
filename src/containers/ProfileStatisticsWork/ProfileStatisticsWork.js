@@ -6,6 +6,7 @@ import Chart from 'chart.js';
 import PropTypes from 'prop-types';
 import connect from 'react-redux/es/connect/connect';
 import { withRouter } from 'react-router';
+import { LinkContainer } from 'react-router-bootstrap';
 
 ReactChartkick.addAdapter(Chart);
 
@@ -69,9 +70,11 @@ class ProfileStatisticsWork extends Component {
                 return '';
               }
               return (
-                <div className={`menu-item section-item-container ${item.value === 'statistics' && 'active'}`}>
-                  {item.title}
-                </div>
+                <LinkContainer to={item.href} className="login-links">
+                  <div className={`menu-item section-item-container ${item.value === 'statistics' && 'active'}`}>
+                    {item.title}
+                  </div>
+                </LinkContainer>
               );
             })}
           </div>

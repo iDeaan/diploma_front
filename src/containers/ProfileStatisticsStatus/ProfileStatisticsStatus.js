@@ -6,6 +6,7 @@ import Chart from 'chart.js';
 import PropTypes from 'prop-types';
 import connect from 'react-redux/es/connect/connect';
 import { withRouter } from 'react-router';
+import { LinkContainer } from 'react-router-bootstrap';
 
 ReactChartkick.addAdapter(Chart);
 
@@ -43,6 +44,7 @@ const menuList = [
 class ProfileStatisticsStatus extends Component {
   static propTypes = {
     history: PropTypes.objectOf(PropTypes.any).isRequired,
+    match: PropTypes.object.isRequired,
     user: PropTypes.object
   };
 
@@ -50,14 +52,41 @@ class ProfileStatisticsStatus extends Component {
     user: {}
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      statistics: {}
+    };
+  }
+
+  componentDidMount() {
+    const { match } = this.props;
+    const { params } = match;
+
+    fetch(`http://localhost:3030/users_statistics?interestId=${params.id}&dataType=status`)
+      .then(response => response.json())
+      .then(response => {
+        this.setState({ statistics: response.data });
+      });
+  }
+
   handleChange = event => {
-    const { history } = this.props;
-    history.push(`/profile/statistics/${event.target.value}`);
+    const { history, match } = this.props;
+    const { params } = match;
+    history.push(`/profile/statistics/${params.id}/${event.target.value}`);
   };
 
   render() {
     const { user } = this.props;
 
+    const { statistics } = this.state;
+
+    const statData = [];
+    if (statistics && statistics.items) {
+      statistics.items.forEach(item => {
+        statData.push([item.title, item.count]);
+      });
+    }
     return (
       <div className="container profile-page-container">
         <Helmet title="Home" />
@@ -69,9 +98,11 @@ class ProfileStatisticsStatus extends Component {
                 return '';
               }
               return (
-                <div className={`menu-item section-item-container ${item.value === 'statistics' && 'active'}`}>
-                  {item.title}
-                </div>
+                <LinkContainer to={item.href} className="login-links">
+                  <div className={`menu-item section-item-container ${item.value === 'statistics' && 'active'}`}>
+                    {item.title}
+                  </div>
+                </LinkContainer>
               );
             })}
           </div>
@@ -89,7 +120,7 @@ class ProfileStatisticsStatus extends Component {
                   </select>
                 </div>
               </div>
-              <PieChart data={[['Не в стосунках', 43], ['В стосунках', 57]]} />
+              <PieChart data={statData} />
             </div>
           </div>
         </div>

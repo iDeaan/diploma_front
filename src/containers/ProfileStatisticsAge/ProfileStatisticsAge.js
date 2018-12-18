@@ -6,6 +6,7 @@ import Chart from 'chart.js';
 import PropTypes from 'prop-types';
 import connect from 'react-redux/es/connect/connect';
 import { withRouter } from 'react-router';
+import { LinkContainer } from 'react-router-bootstrap';
 
 ReactChartkick.addAdapter(Chart);
 
@@ -43,6 +44,7 @@ const menuList = [
 class ProfileStatisticsAge extends Component {
   static propTypes = {
     history: PropTypes.objectOf(PropTypes.any).isRequired,
+    match: PropTypes.object.isRequired,
     user: PropTypes.object
   };
 
@@ -50,13 +52,40 @@ class ProfileStatisticsAge extends Component {
     user: {}
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      statistics: {}
+    };
+  }
+
+  componentDidMount() {
+    const { match } = this.props;
+    const { params } = match;
+
+    fetch(`http://localhost:3030/users_statistics?interestId=${params.id}&dataType=age`)
+      .then(response => response.json())
+      .then(response => {
+        this.setState({ statistics: response.data });
+      });
+  }
+
   handleChange = event => {
-    const { history } = this.props;
-    history.push(`/profile/statistics/${event.target.value}`);
+    const { history, match } = this.props;
+    const { params } = match;
+    history.push(`/profile/statistics/${params.id}/${event.target.value}`);
   };
 
   render() {
     const { user } = this.props;
+    const { statistics } = this.state;
+
+    const statData = [];
+    if (statistics && statistics.items) {
+      statistics.items.forEach(item => {
+        statData.push([item.title, item.count]);
+      });
+    }
 
     return (
       <div className="container profile-page-container">
@@ -69,15 +98,17 @@ class ProfileStatisticsAge extends Component {
                 return '';
               }
               return (
-                <div className={`menu-item section-item-container ${item.value === 'statistics' && 'active'}`}>
-                  {item.title}
-                </div>
+                <LinkContainer to={item.href} className="login-links">
+                  <div className={`menu-item section-item-container ${item.value === 'statistics' && 'active'}`}>
+                    {item.title}
+                  </div>
+                </LinkContainer>
               );
             })}
           </div>
           <div className="profile-content">
             <div className="statistics-container section-item-container">
-              <div className="section-main-title">Статистика для інтересу "Книги"</div>
+              <div className="section-main-title">Статистика для інтересу "{statistics.title}"</div>
               <div className="select-data">
                 <div className="key">Оберіть графік</div>
                 <div className="value">
@@ -104,9 +135,7 @@ class ProfileStatisticsAge extends Component {
                   ]}
                 />
               </div>
-              <ColumnChart
-                data={[['10-20', 11], ['20-30', 34], ['30-40', 27], ['40-50', 12], ['50-60', 16], ['70-80', 0]]}
-              />
+              <ColumnChart data={statData} />
             </div>
           </div>
         </div>
