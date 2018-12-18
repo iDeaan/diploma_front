@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
+import { getAdvetismentByAdvetiserAndInterest as GADLIST } from 'redux/modules/advetisments';
 
 const menuList = [
   {
@@ -30,45 +31,46 @@ const menuList = [
   }
 ];
 
-const adsList = [
+@connect(
+  state => ({
+    user: state.user.data.user
+  }),
   {
-    id: 1,
-    name: 'Знижки на книги 50%',
-    status: 'Активний',
-    beginDate: '21/12/2018',
-    endDate: '31/12/2018',
-    viewsNumber: 10,
-    clicksNumber: 3
-  },
-  {
-    id: 2,
-    name: 'Відкриття нового магазину!!!',
-    status: 'Не активний',
-    beginDate: '19/12/2018',
-    endDate: '21/12/2018',
-    viewsNumber: 4,
-    clicksNumber: 4
+    getAdvetismentByAdvetiserAndInterest: GADLIST
   }
-];
-
-@connect(state => ({
-  user: state.user.data.user
-}))
+)
 @withRouter
 class ProfileGeneralInformation extends Component {
   static propTypes = {
     user: PropTypes.object,
     history: PropTypes.objectOf(PropTypes.any).isRequired,
-    match: PropTypes.objectOf(PropTypes.any).isRequired
+    match: PropTypes.objectOf(PropTypes.any).isRequired,
+    getAdvetismentByAdvetiserAndInterest: PropTypes.func.isRequired
   };
 
   static defaultProps = {
     user: {}
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: []
+    };
+  }
+
+  componentDidMount() {
+    const { user, match, getAdvetismentByAdvetiserAndInterest } = this.props;
+
+    getAdvetismentByAdvetiserAndInterest(user.id, match.params.id).then(response => {
+      this.setState({ items: response.data });
+    });
+  }
+
   render() {
     const { user, history, match } = this.props;
     const { params } = match;
+    const { items } = this.state;
 
     require('./ProfileAdvetismentItem.scss');
     return (
@@ -104,15 +106,15 @@ class ProfileGeneralInformation extends Component {
                     <th>Переглядів</th>
                     <th>Кліків</th>
                   </tr>
-                  {adsList.map(item => (
+                  {items.map(item => (
                     <tr>
                       <td>{item.id}</td>
-                      <td>{item.name}</td>
-                      <td>{item.status}</td>
-                      <td>{item.beginDate}</td>
-                      <td>{item.endDate}</td>
-                      <td>{item.viewsNumber}</td>
-                      <td>{item.clicksNumber}</td>
+                      <td>{item.title}</td>
+                      <td>{Number(item.status) === 1 ? 'Активний' : 'Не активний'}</td>
+                      <td>{item.begin_date}</td>
+                      <td>{item.end_date}</td>
+                      <td>{Number(item.view_number)}</td>
+                      <td>{Number(item.clicks_number)}</td>
                     </tr>
                   ))}
                 </table>

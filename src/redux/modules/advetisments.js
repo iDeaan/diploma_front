@@ -4,6 +4,8 @@ const USER_ADD_FAIL = 'redux-examples/interests/USER_ADD_FAIL';
 
 const CREATE_NEW_ADD = 'redux-examples/advetisments/CREATE_NEW_ADD';
 
+const GET_ADVETISMENTS = 'redux-examples/advetisments/GET_ADVETISMENTS';
+
 const initialState = {
   addInterests: []
 };
@@ -33,6 +35,11 @@ export default function reducer(state = initialState, action = {}) {
         ...state
       };
     }
+    case GET_ADVETISMENTS: {
+      return {
+        ...state
+      };
+    }
     default:
       return state;
   }
@@ -49,5 +56,12 @@ export function createNewAdd(data) {
   return {
     types: [CREATE_NEW_ADD, CREATE_NEW_ADD, CREATE_NEW_ADD],
     promise: ({ client }) => client.post('/advetisments', data)
+  };
+}
+
+export function getAdvetismentByAdvetiserAndInterest(advetiserId, interestId) {
+  return {
+    types: [GET_ADVETISMENTS, GET_ADVETISMENTS, GET_ADVETISMENTS],
+    promise: async ({ client }) => client.get(`/advetisments?where=((advetiser_id*=*${advetiserId}),(interest_id*=*${interestId}))`)
   };
 }
